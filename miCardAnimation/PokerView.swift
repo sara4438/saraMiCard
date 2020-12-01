@@ -175,6 +175,14 @@ class PokerView: UIView {
             let y =  inputTimeKeyY - Float(self.bounds.midY)
             let x =  inputTimeKeyX - Float(self.bounds.midX)
             factor =  y / x
+        case .top:
+            distanceY = inputTimeKeyY
+        case .right:
+            distanceX = abs(Float(self.bounds.maxX) - inputTimeKeyX)
+        case .bottom:
+            distanceY = abs(Float(self.bounds.maxY) - inputTimeKeyY)
+        case .left:
+            distanceX = inputTimeKeyX
         default :
             break
         }
