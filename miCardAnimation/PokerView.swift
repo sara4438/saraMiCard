@@ -74,8 +74,9 @@ class PokerView: UIView {
     
     // MARK: - 咪牌相關
     
-    private func getAngle (_ factor: Float) -> Double {
-        let angel = Double(factor) / (Double.pi / 180)
+    private func getAngle (_ factor: Float) -> Float {
+//        let angel = Double(factor) / (Double.pi / 180)
+        let angel = atan(factor)
         print("ssssFactor", factor)
         print("ssssAngel", angel)
         return angel
@@ -89,29 +90,22 @@ class PokerView: UIView {
         var n : Float = 0
         switch self.enterDragingCorner {
             case .leftTop:
-                n = -7.05 + (inputAngleFactor > Float(self.frame.height / self.frame.width) ?  -(0.785 * sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )) : (inputAngleFactor < 1) ? (0.785 * 1 / sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )) : 0 )
+                n = -7.833 + Float(sin(getAngle(inputAngleFactor)) * 1.57)
                 n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n
-            print("xxxx", 0.785 * sqrt(inputAngleFactor * Float(self.frame.width / self.frame.height)))
 //                n = -6.28 //正左
 //                n = -7.833 正上
             case .rightTop:
-//                n = -2.35 + (inputAngleFactor > Float(self.frame.height / self.frame.width) ? (0.785 * sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )) : (-0.785 * 1 / sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )))
-                n = -3.14 + Float(sin(getAngle(inputAngleFactor)) * 1.57)
-//            print("bbbbb", Float(sin(getAngle(inputAngleFactor)) ))
-//                n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n
-                
+                n = -1.57 - Float(sin(getAngle(inputAngleFactor)) * 1.57)
+                n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n
 //                n = -1.57 //正上
             case .rightBottom:
-                n = -3.93 + (inputAngleFactor > Float(self.frame.height / self.frame.width) ?  -(0.785 * sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )) :  (0.785 * 1 / sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )))
+                n = -4.71 + Float(sin(getAngle(inputAngleFactor)) * 1.57)
                 n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n
-            
 //                n = -3.14 // 正右
 
             case .leftBottom:
-//                n = -5.5 + (inputAngleFactor > Float( self.frame.height / self.frame.width) ?  (0.785 * sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )) : (-0.785 * 1 / sqrt(inputAngleFactor) * Float(self.frame.width / self.frame.height )))
-//                n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
-                 n = -6.28 + Float(sin(getAngle(inputAngleFactor)) * 1.57)
-                 print("dddd",  Float(sin(getAngle(inputAngleFactor))))
+                 n = -4.71 - Float(sin(getAngle(inputAngleFactor)) * 1.57)
+                 n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
 //                n = -4.71 //正下
             case .top:
                 n = -1.57
@@ -143,69 +137,49 @@ class PokerView: UIView {
     }
     
     private func updateCurlPoker(_ touchPointY: CGFloat, _ touchPointX: CGFloat) {
-        switch self.enterDragingCorner {
-            case .leftTop:
-//                print("xxxtouchX", touchPointX , "touchY", touchPointY )
-//                print( "1/2width", 0.5 * self.frame.width, "1/2height", 0.5 * self.frame.height)
-                let distanceY =  Float( touchPointY - self.bounds.minY)
-                let distanceX =  Float( touchPointX - self.bounds.minX)
-                if distanceY > Float(0.5 * self.frame.height) || distanceX > Float( 0.5 * self.frame.width) {
-                    return
-                }
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: distanceY )
-            case .rightTop:
-                let distanceY = Float(abs(touchPointY - self.bounds.minY))
-                let distanceX = Float(abs(touchPointX - self.bounds.maxX))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: distanceY )
-            case .rightBottom:
-                let distanceY = Float(abs(touchPointY - self.bounds.maxY))
-                let distanceX = Float(abs(touchPointX - self.bounds.maxX))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: distanceY )
-            case .leftBottom:
-                let distanceY = Float(abs(touchPointY - self.bounds.maxY))
-                let distanceX = Float(abs(touchPointX - self.bounds.minX))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: distanceY )
-            case .top:
-                let distanceY =  Float(abs(touchPointY - self.bounds.minY))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: 1, inputTimeKeyY: distanceY )
-            case .right:
-                let distanceX =  Float(abs(touchPointX - self.bounds.maxX))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: 1)
-            case .bottom:
-                let distanceY =  Float(abs(touchPointY - self.bounds.maxY))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: 1, inputTimeKeyY: distanceY)
-            case .left:
-                let distanceX =  Float(abs(touchPointX - self.bounds.minX))
-                self.setCurlImageView(poker: self.b3!, inputTimeKeyX: distanceX, inputTimeKeyY: 1)
-            default:
-                break
-            }
+        self.setCurlImageView(poker: self.b3!, inputTimeKeyX: Float(touchPointX), inputTimeKeyY: Float(touchPointY ))
     }
 
     private func setCurlImageView(poker: PokerImageView, inputTimeKeyX: Float, inputTimeKeyY: Float ) {
         let img1 = UIImage(named: "pic_poker_game_150x210")
         let img2 = UIImage(named: "pic_pokerDiamond_04_game_150x210")
         var factor : Float = 0.0
+        var distanceX :  Float = 0.0
+        var distanceY :  Float = 0.0
         switch self.enterDragingCorner {
-//        case .leftTop:
-//            //            if point.y > midY + quarterHeight || point.x > midX + quarterWidth {
-//            //                //                        flipCard()
-//            //                return
-//            //            }
-//        //        //                    self.updateCurlPoker(point.y, point.x )
-        case .rightTop:
-            let y = inputTimeKeyY - Float(1/2 * self.bounds.maxY)
-            let x = inputTimeKeyX -  Float(1/2 * self.bounds.maxX)
+        case .leftTop:
+            distanceY = inputTimeKeyY - Float( self.bounds.minY)
+            distanceX = inputTimeKeyX -  Float( self.bounds.minX)
+            
+            let y =  Float( self.bounds.midY) - inputTimeKeyY
+            let x =  Float(self.bounds.midX) - inputTimeKeyX
             factor =  y / x
-            print("aaaaa", factor)
+        case .rightTop:
+            distanceY = abs(inputTimeKeyY - Float(self.bounds.minY))
+            distanceX = abs(inputTimeKeyX - Float(self.bounds.maxX))
+            
+            let y = Float(self.bounds.midY) - inputTimeKeyY
+            let x = inputTimeKeyX -  Float(self.bounds.midX)
+            factor =  y / x
+        case .leftBottom:
+            distanceY = abs(inputTimeKeyY - Float(self.bounds.maxY))
+            distanceX = abs(inputTimeKeyX - Float(self.bounds.minX))
+            
+            let y =  inputTimeKeyY - Float(self.bounds.midY)
+            let x =   abs(Float(self.bounds.midX) - inputTimeKeyX)
+            factor =  y / x
+        case .rightBottom :
+            distanceY = abs(inputTimeKeyY - Float(self.bounds.maxY))
+            distanceX = abs(inputTimeKeyX - Float(self.bounds.maxX))
+            
+            let y =  inputTimeKeyY - Float(self.bounds.midY)
+            let x =  inputTimeKeyX - Float(self.bounds.midX)
+            factor =  y / x
         default :
             break
         }
-//        let factorX = CGFloat(truncating: inputTimeKeyX) / self.frame.width //y座標
-//        let factorY = CGFloat(truncating: inputTimeKeyY) / self.frame.height //x座標
-//        let factor : Float = inputTimeKeyY / inputTimeKeyX
-            
-        let img3 = pageCurlWithShadowTransition(inputImage: img1!, inputTargetImage: img2!, inputBacksideImage: img2!, inputTimeKey: NSNumber(value: max(inputTimeKeyX, inputTimeKeyY) / 250), inputAngleFactor: factor)
+        
+        let img3 = pageCurlWithShadowTransition(inputImage: img1!, inputTargetImage: img2!, inputBacksideImage: img2!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), inputAngleFactor: factor)
 //        let img3 = pageCurlWithShadowTransition(inputImage: img1!, inputTargetImage: img2!, inputBacksideImage: img2!, inputTimeKey: NSNumber(value: Float(30/100)))
         poker.image = img3
     }
@@ -326,8 +300,8 @@ extension PokerView {
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
-        let quarterHeight = 1/4 * self.frame.height
-        let quarterWidth = 1/4 * self.frame.width
+        let quarterHeight = 0 * self.frame.height
+        let quarterWidth = 0 * self.frame.width
         let midX = self.bounds.midX
         let midY = self.bounds.midY
         if (self.point(inside: point, with: nil)) {
@@ -338,14 +312,12 @@ extension PokerView {
 //                        flipCard()
                         return
                     }
-//                    self.updateCurlPoker(point.y, point.x )
+                    self.updateCurlPoker(point.y, point.x )
                 case .rightTop:
                     if point.y > midY + quarterHeight || point.x < midX - quarterWidth {
 //                        flipCard()
-                        print("ddddx", point.x, "y ", point.y  )
                         return
                     }
-                    print("ddddx", point.x, "y ", point.y  )
                     self.updateCurlPoker( point.y , point.x)
                 case .rightBottom:
                     if point.y < midY - quarterHeight || point.x < midX - quarterWidth {
