@@ -15,6 +15,11 @@
 		F962B771256F599000E42CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962B76F256F599000E42CE3 /* LaunchScreen.storyboard */; };
 		F962B77C256F599100E42CE3 /* miCardAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B77B256F599100E42CE3 /* miCardAnimationTests.swift */; };
 		F962B787256F599100E42CE3 /* miCardAnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B786256F599100E42CE3 /* miCardAnimationUITests.swift */; };
+		F962B795256F5AAE00E42CE3 /* PokerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B794256F5AAE00E42CE3 /* PokerView.swift */; };
+		F962B797256F5ABA00E42CE3 /* PokerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F962B796256F5ABA00E42CE3 /* PokerView.xib */; };
+		F962B799256F5C4600E42CE3 /* XibInstantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B798256F5C4600E42CE3 /* XibInstantiate.swift */; };
+		F962B79B256F5CF700E42CE3 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */; };
+		F962B79D256F5D7800E42CE3 /* BundleUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B79C256F5D7800E42CE3 /* BundleUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		F962B782256F599100E42CE3 /* miCardAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = miCardAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962B786256F599100E42CE3 /* miCardAnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = miCardAnimationUITests.swift; sourceTree = "<group>"; };
 		F962B788256F599100E42CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F962B794256F5AAE00E42CE3 /* PokerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerView.swift; sourceTree = "<group>"; };
+		F962B796256F5ABA00E42CE3 /* PokerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokerView.xib; sourceTree = "<group>"; };
+		F962B798256F5C4600E42CE3 /* XibInstantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibInstantiate.swift; sourceTree = "<group>"; };
+		F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
+		F962B79C256F5D7800E42CE3 /* BundleUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +114,13 @@
 				F962B768256F598F00E42CE3 /* ViewController.swift */,
 				F962B76A256F598F00E42CE3 /* Main.storyboard */,
 				F962B76D256F599000E42CE3 /* Assets.xcassets */,
-				F962B76F256F599000E42CE3 /* LaunchScreen.storyboard */,
 				F962B772256F599000E42CE3 /* Info.plist */,
+				F962B794256F5AAE00E42CE3 /* PokerView.swift */,
+				F962B796256F5ABA00E42CE3 /* PokerView.xib */,
+				F962B798256F5C4600E42CE3 /* XibInstantiate.swift */,
+				F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */,
+				F962B79C256F5D7800E42CE3 /* BundleUtility.swift */,
+				F962B76F256F599000E42CE3 /* LaunchScreen.storyboard */,
 			);
 			path = miCardAnimation;
 			sourceTree = "<group>";
@@ -234,6 +249,7 @@
 			files = (
 				F962B771256F599000E42CE3 /* LaunchScreen.storyboard in Resources */,
 				F962B76E256F599000E42CE3 /* Assets.xcassets in Resources */,
+				F962B797256F5ABA00E42CE3 /* PokerView.xib in Resources */,
 				F962B76C256F598F00E42CE3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,7 +276,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F962B769256F598F00E42CE3 /* ViewController.swift in Sources */,
+				F962B799256F5C4600E42CE3 /* XibInstantiate.swift in Sources */,
+				F962B79D256F5D7800E42CE3 /* BundleUtility.swift in Sources */,
+				F962B79B256F5CF700E42CE3 /* UIImageExtention.swift in Sources */,
 				F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */,
+				F962B795256F5AAE00E42CE3 /* PokerView.swift in Sources */,
 				F962B767256F598F00E42CE3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +473,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -470,6 +492,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -491,6 +514,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,6 +535,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,6 +555,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
