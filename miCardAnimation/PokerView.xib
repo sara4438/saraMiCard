@@ -9,9 +9,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokerView" customModule="miCardAnimation">
             <connections>
-                <outlet property="b3" destination="nWZ-ge-vA0" id="NOV-8D-3gD"/>
                 <outlet property="constraintX" destination="IIG-lx-5j7" id="CxK-Dv-HPX"/>
                 <outlet property="constraintY" destination="8eX-Zh-dME" id="Xvg-RP-g5R"/>
+                <outlet property="poker" destination="nWZ-ge-vA0" id="NOV-8D-3gD"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
