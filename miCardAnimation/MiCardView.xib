@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokerView" customModule="miCardAnimation">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
             <connections>
                 <outlet property="constraintX" destination="IIG-lx-5j7" id="CxK-Dv-HPX"/>
                 <outlet property="constraintY" destination="8eX-Zh-dME" id="Xvg-RP-g5R"/>
