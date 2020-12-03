@@ -103,17 +103,17 @@ class MiCardView: UIView {
             case .leftBottom:
                  n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
                  n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
-        case .top:
-            n = -1.57 // or -7.833
-        case .right:
-            n = -3.14
-        case .bottom:
-            n = -4.71
-        case .left:
-            n = -6.28
-        default:
-            break
-        }
+            case .top:
+                n = -1.57 // or -7.833
+            case .right:
+                n = -3.14
+            case .bottom:
+                n = -4.71
+            case .left:
+                n = -6.28
+            default:
+                break
+            }
         inputAngle = NSNumber(value: n )
         filter.setDefaults()
         filter.setValue(CIImage(image: inputImage), forKey: kCIInputImageKey)
@@ -131,41 +131,35 @@ class MiCardView: UIView {
         let processedImage = UIImage(cgImage: cgimg!)
         return processedImage
     }
-    
+
     private func flipBackAnimation () {
         if self.enterDragingCorner == .none {
             return
         }
-        
-        timer?.schedule(deadline: .now(), repeating: 0.01)   //设置延时和重复操作时间
-        timer?.setEventHandler(handler: {
-            if self.distanceX <= 0 && self.distanceY <= 0  {
-                self.timer!.suspend()
-                self.distanceX = 0
-                self.distanceY = 0
-                self.enterDragingCorner = .none
-                self.isAnimating = false
-                return
-            }
-            self.isAnimating = true
-            self.distanceX -= 10
-            self.distanceY -= 10
-            DispatchQueue.main.async {
-                self.setReleaseCurlImageView()
-            }
-            
-        })
-        self.timer?.resume()
 
+        timer?.schedule(deadline: .now(), repeating: 0.01)   //设置延时和重复操作时间
+               timer?.setEventHandler(handler: {
+                if self.distanceX <= 0 && self.distanceY <= 0  {
+                    self.timer!.suspend()
+                    self.distanceX = 0
+                    self.distanceY = 0
+                    self.enterDragingCorner = .none
+                    self.isAnimating = false
+                    return
+                }
+                self.isAnimating = true
+                self.distanceX -= 12
+                self.distanceY -= 12
+                   DispatchQueue.main.async {
+                    self.setReleaseCurlImageView()
+                }
+            
+               })
+        self.timer?.resume()
+ 
+     }
     
      func update() {
-//        if distanceX <= 0 && distanceY <= 0 {
-//            self.enterDragingCorner = .none
-//            self.timer!.suspend()
-////            clearCountDown()
-//            
-//            return
-//        }
         distanceX -= 8
         distanceY -= 10
         setReleaseCurlImageView()
