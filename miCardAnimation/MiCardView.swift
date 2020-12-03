@@ -15,8 +15,7 @@ class MiCardView: UIView {
     @IBOutlet weak var constraintY: NSLayoutConstraint!
     private var context = CIContext(options: nil)
     private var touchePoint: CGPoint?
-    private var startMiCard: Bool = false
-    private var timer: Timer?
+    private var timer: DispatchSourceTimer? //GCD Timer好棒棒
     private var enterDragingCorner: Corner = .none
     private var distanceX :  Float = 0.0
     private var distanceY :  Float = 0.0
@@ -24,6 +23,7 @@ class MiCardView: UIView {
     @IBOutlet weak var poker: PokerImageView!
     private let backImage = UIImage(named: "pic_poker_game_150x210")
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
+    private var isAnimating: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +33,7 @@ class MiCardView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+        self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //创建定时器资源
     }
     
     func loadXib(){
@@ -75,8 +76,6 @@ class MiCardView: UIView {
         poker.hasSuit = fileName != "pic_poker_250x350"
     }
     
-    // MARK: - 咪牌相關
-    
     private func getAngle (_ factor: Float) -> Float {
         let angel = atan(factor)
         return angel
@@ -104,17 +103,17 @@ class MiCardView: UIView {
             case .leftBottom:
                  n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
                  n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
-            case .top:
-                n = -1.57 // or -7.833
-            case .right:
-                n = -3.14
-            case .bottom:
-                n = -4.71
-            case .left:
-                n = -6.28
-            default:
-                break
-            }
+        case .top:
+            n = -1.57 // or -7.833
+        case .right:
+            n = -3.14
+        case .bottom:
+            n = -4.71
+        case .left:
+            n = -6.28
+        default:
+            break
+        }
         inputAngle = NSNumber(value: n )
         filter.setDefaults()
         filter.setValue(CIImage(image: inputImage), forKey: kCIInputImageKey)
@@ -132,34 +131,52 @@ class MiCardView: UIView {
         let processedImage = UIImage(cgImage: cgimg!)
         return processedImage
     }
-
+    
     private func flipBackAnimation () {
         if self.enterDragingCorner == .none {
             return
         }
-        self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector:  #selector(update), userInfo: true, repeats: true)
-     }
+        
+        timer?.schedule(deadline: .now(), repeating: 0.01)   //设置延时和重复操作时间
+        timer?.setEventHandler(handler: {
+            if self.distanceX <= 0 && self.distanceY <= 0  {
+                self.timer!.suspend()
+                self.distanceX = 0
+                self.distanceY = 0
+                self.enterDragingCorner = .none
+                self.isAnimating = false
+                return
+            }
+            self.isAnimating = true
+            self.distanceX -= 10
+            self.distanceY -= 10
+            DispatchQueue.main.async {
+                self.setReleaseCurlImageView()
+            }
+            
+        })
+        self.timer?.resume()
+
     
-     @objc func update() {
-        if distanceX <= 0 && distanceY <= 0 {
-            distanceX = 0
-            distanceY = 0
-            self.enterDragingCorner = .none
-            clearCountDown()
-            return
-        }
+     func update() {
+//        if distanceX <= 0 && distanceY <= 0 {
+//            self.enterDragingCorner = .none
+//            self.timer!.suspend()
+////            clearCountDown()
+//            
+//            return
+//        }
         distanceX -= 8
         distanceY -= 10
         setReleaseCurlImageView()
-        
     }
     
     private func clearCountDown() {
         if (self.timer == nil) {
             return
         }
-        self.timer!.invalidate()
-        self.timer = nil
+//        self.timer!.invalidate()
+//        self.timer = nil
     }
 
     
@@ -269,17 +286,15 @@ class MiCardView: UIView {
 //        self.timer = Timer(timeInterval: 0.1, target: self, selector: #selector(updateCurlPoker), userInfo: nil, repeats: true)
 //        RunLoop.main.add(self.timer!, forMode: RunLoop.Mode.common)
 //    }
-////
-//    private func stopMiCard() {
-//        self.timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateCurlPoker), userInfo: nil, repeats: true)
-//        RunLoop.main.add(self.timer!, forMode: RunLoop.Mode.common)
-//
-//        //        b3.image = UIImage(named: "pic_poker_game_150x210"
-//    }
+
     
     private func flipCard() {
          self.playPokerAnimation(poker: self.poker!, option: .transitionFlipFromBottom) //咪完開牌橫放
         self.enterDragingCorner = .none
+    }
+    
+    deinit {
+        self.timer?.cancel()
     }
 }
 
@@ -388,6 +403,9 @@ extension MiCardView {
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
+        if isAnimating {
+            return
+        }
         if self.enterDragingCorner != .none {
             if self.enterDragingCorner != .none {
                 switch self.enterDragingCorner {
@@ -447,6 +465,9 @@ extension MiCardView {
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isAnimating {
+            return
+        }
         self.flipBackAnimation()
         self.enterDragingCorner = .none
     }
