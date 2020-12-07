@@ -13,6 +13,7 @@ import UIKit
 class MiCardView: UIView {
     @IBOutlet weak var constraintX: NSLayoutConstraint!
     @IBOutlet weak var constraintY: NSLayoutConstraint!
+//    @IBOutlet weak var lookImg: UIImageView!
     private var context = CIContext(options: nil)
     private var touchePoint: CGPoint?
     private var timer: DispatchSourceTimer? //GCD Timer好棒棒
@@ -23,17 +24,20 @@ class MiCardView: UIView {
     @IBOutlet weak var poker: PokerImageView!
     private let backImage = UIImage(named: "pic_poker_game_150x210")
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
+    private let testImg = UIImage(named: "pic_pokerDiamond_10_game_150x210")
     private var isAnimating: Bool = false
-    
+    private var mirrorImg: UIImage = UIImage()
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadXib()
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
-        self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //创建定时器资源
+//        self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //创建定时器资源
+        
     }
     
     func loadXib(){
@@ -48,7 +52,25 @@ class MiCardView: UIView {
         xibView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         xibView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         xibView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        mirrorImg = UIImage(cgImage:convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation:.downMirrored )
+//        lookImg.image = mirrorImg
     }
+    
+    func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
+          var cgImage = uiImage.cgImage
+
+          if cgImage == nil {
+              let ciImage = uiImage.ciImage
+              cgImage = self.convertCIImageToCGImage(ciImage: ciImage!)
+          }
+          return cgImage!
+      }
+      
+      func convertCIImageToCGImage(ciImage:CIImage) -> CGImage{
+          let ciContext = CIContext.init()
+          let cgImage:CGImage = ciContext.createCGImage(ciImage, from: ciImage.extent)!
+          return cgImage
+      }
     
     private func setPokerImageView(poker: PokerImageView, fileName: String, option: AnimationOptions) {
         
@@ -79,6 +101,12 @@ class MiCardView: UIView {
     private func getAngle (_ factor: Float) -> Float {
         let angel = atan(factor)
         return angel
+    }
+    
+    private func updateCurlImageView() {
+        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: mirrorImg, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
+        poker.image = img3
     }
 
     private func pageCurlWithShadowTransition(inputImage: UIImage, inputTargetImage: UIImage, inputBacksideImage: UIImage, inputTimeKey: NSNumber, slope: Float) -> UIImage? {
@@ -118,7 +146,9 @@ class MiCardView: UIView {
         filter.setDefaults()
         filter.setValue(CIImage(image: inputImage), forKey: kCIInputImageKey)
         //            filter.setValue(inputTargetImage, forKey: "inputTargetImage")
-        filter.setValue(CIImage(image: inputBacksideImage), forKey: "inputBacksideImage")
+        let ciImg = CIImage(image: frontImage!)?.oriented(.downMirrored)
+        ciImg?.oriented(.downMirrored)
+        filter.setValue(ciImg!, forKey: "inputBacksideImage")
         filter.setValue(inputTimeKey, forKey: kCIInputTimeKey)
         filter.setValue(inputAngle, forKey: kCIInputAngleKey)
         filter.setValue(5, forKey: kCIInputRadiusKey)
@@ -132,47 +162,32 @@ class MiCardView: UIView {
         return processedImage
     }
 
+    
     private func flipBackAnimation () {
-        if self.enterDragingCorner == .none {
-            return
-        }
-
-        timer?.schedule(deadline: .now(), repeating: 0.01)   //设置延时和重复操作时间
-               timer?.setEventHandler(handler: {
-                if self.distanceX <= 0 && self.distanceY <= 0  {
-                    self.timer!.suspend()
-                    self.distanceX = 0
-                    self.distanceY = 0
-                    self.enterDragingCorner = .none
-                    self.isAnimating = false
-                    return
-                }
-                self.isAnimating = true
-                self.distanceX -= 12
-                self.distanceY -= 12
-                   DispatchQueue.main.async {
-                    self.setReleaseCurlImageView()
-                }
-            
-               })
-        self.timer?.resume()
- 
-     }
-    
-     func update() {
-        distanceX -= 8
-        distanceY -= 10
-        setReleaseCurlImageView()
-    }
-    
-    private func clearCountDown() {
-        if (self.timer == nil) {
-            return
-        }
-//        self.timer!.invalidate()
-//        self.timer = nil
-    }
-
+           if self.enterDragingCorner == .none {
+               return
+           }
+           self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //創建timer
+           timer?.schedule(deadline: .now(), repeating: 0.01)
+           timer?.setEventHandler(handler: {
+               if self.distanceX <= 0 && self.distanceY <= 0  {
+                   self.timer!.cancel()
+                   self.distanceX = 0
+                   self.distanceY = 0
+                   self.enterDragingCorner = .none
+                   self.isAnimating = false
+                   return
+               }
+               self.isAnimating = true
+               self.distanceX -= 12
+               self.distanceY -= 12
+               DispatchQueue.main.async {
+                   self.updateCurlImageView()
+               }
+           })
+           self.timer?.resume()
+           
+       }
     
     private func setReleaseCurlImageView() {
         let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: self.frontImage!, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
@@ -220,10 +235,18 @@ class MiCardView: UIView {
         default :
             break
         }
-        self.setReleaseCurlImageView()
+        self.updateCurlImageView()
 //        let img3 = pageCurlWithShadowTransition(inputImage: img1!, inputTargetImage: img2!, inputBacksideImage: img2!, inputTimeKey: NSNumber(value: Float(30/100)))
         
     }
+
+    
+//    private func updateCurlImageView() {
+//        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
+//        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: mirrorImg, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
+//        poker.image = img3
+//    }
+//
     
     private func playPokerAnimation(poker: PokerImageView, option: AnimationOptions) {
         //        do {
@@ -295,6 +318,9 @@ class MiCardView: UIView {
 extension MiCardView {
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
+        if isAnimating {
+            return
+        }
         let quarterHeight = 1/4 * self.frame.height
         let quarterWidth = 1/4 * self.frame.width
         let midX = self.bounds.midX
@@ -333,6 +359,9 @@ extension MiCardView {
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
+        if isAnimating {
+            return
+        }
         let quarterHeight = 0 * self.frame.height
         let quarterWidth = 0 * self.frame.width
         let midX = self.bounds.midX
