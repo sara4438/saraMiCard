@@ -20,6 +20,14 @@ class MiCardView: UIView {
     private var enterDragingCorner: Corner = .none
     private var distanceX :  Float = 0.0
     private var distanceY :  Float = 0.0
+    private var midX : CGFloat = 0.0
+    private var midY : CGFloat = 0.0
+    private var minX : CGFloat = 0.0
+    private var minY : CGFloat = 0.0
+    private var maxX : CGFloat = 0.0
+    private var maxY : CGFloat = 0.0
+    private var quarterHeight: CGFloat = 0.0
+    private var quarterWidth: CGFloat = 0.0
     private var slope : Float = 0.0
     @IBOutlet weak var poker: PokerImageView!
     private let backImage = UIImage(named: "pic_poker_game_150x210")
@@ -36,6 +44,15 @@ class MiCardView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+//        self.midX = self.poker.frame.midX
+//        self.midY = self.poker.frame.midY
+//        self.minX = self.poker.frame.origin.x
+//        self.minY = self.poker.frame.origin.y
+//        self.quarterHeight = 1/4 * self.frame.height
+//        self.quarterWidth = 1/4 * self.frame.width
+//        print("aaaaamidX", self.midX, "midY:", self.midY)
+//        print("aaaaaOriginX", self.minX, "originY:", self.minY)
+               
 //        self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //创建定时器资源
         
     }
@@ -54,6 +71,21 @@ class MiCardView: UIView {
         xibView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 //        mirrorImg = UIImage(cgImage:convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation:.downMirrored )
 //        lookImg.image = mirrorImg
+        
+    }
+    override func layoutSubviews() {
+        self.midX = self.poker.frame.midX
+        self.midY = self.poker.frame.midY
+        self.minX = self.poker.frame.minX
+        self.minY = self.poker.frame.minY
+        self.maxX = self.poker.frame.maxX
+        self.maxY = self.poker.frame.maxY
+        self.quarterHeight = 1/4 * self.poker.frame.height
+        self.quarterWidth = 1/4 * self.poker.frame.width
+        print("aaaaamidX", self.midX, "midY:", self.midY)
+        print("aaaaaminX", self.minX, "minY:", self.minY)
+        print("aaaaawidth", self.quarterWidth, "height:",self.quarterHeight)
+        
     }
     
     func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
@@ -104,8 +136,8 @@ class MiCardView: UIView {
     }
     
     private func updateCurlImageView() {
-        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: mirrorImg, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
+//        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         poker.image = img3
     }
 
@@ -194,44 +226,114 @@ class MiCardView: UIView {
         poker.image = img3
     }
     
-    private func setCurlImageView(inputTimeKeyX: Float, inputTimeKeyY: Float ) {
+    private func setCurlImageView(inputTimeKeyX: CGFloat, inputTimeKeyY: CGFloat ) {
+        var touchPointX: Float = 0
+        var touchPointY: Float = 0
         switch self.enterDragingCorner {
         case .leftTop:
-            distanceY = inputTimeKeyY - Float( self.bounds.minY)
-            distanceX = inputTimeKeyX -  Float( self.bounds.minX)
-            let y =  Float(self.bounds.midY) - inputTimeKeyY
-            let x =  Float(self.bounds.midX) - inputTimeKeyX
+            if inputTimeKeyX > midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
+            if inputTimeKeyY > midY  {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
+            
+            distanceY = touchPointY - Float(minY)
+            distanceX = touchPointX -  Float(minX)
+            let y =  Float(maxY) - touchPointY
+            let x =  Float(maxX) - touchPointX
             
             slope =  y / x
         case .rightTop:
-            distanceY = abs(inputTimeKeyY - Float(self.bounds.minY))
-            distanceX = abs(inputTimeKeyX - Float(self.bounds.maxX))
+            if inputTimeKeyY > midY {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
+            if inputTimeKeyX < midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
             
-            let y = Float(self.bounds.midY) - inputTimeKeyY
-            let x = inputTimeKeyX -  Float(self.bounds.midX)
+            distanceY = abs(touchPointY - Float(minY))
+            distanceX = abs(touchPointX - Float(maxX))
+
+            let y = Float(maxY) - touchPointY
+            let x = touchPointX - Float(minX)
             slope =  y / x
         case .leftBottom:
-            distanceY = abs(inputTimeKeyY - Float(self.bounds.maxY))
-            distanceX = abs(inputTimeKeyX - Float(self.bounds.minX))
+            if inputTimeKeyX > midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
+            if inputTimeKeyY < midY {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
             
-            let y =  inputTimeKeyY - Float(self.bounds.midY)
-            let x =   abs(Float(self.bounds.midX) - inputTimeKeyX)
+            distanceY = abs(touchPointY - Float(maxY))
+            distanceX = abs(touchPointX - Float(minX))
+
+            let y =  touchPointY - Float(minY)
+            let x =   abs(Float(maxX) - touchPointX)
             slope =  y / x
-        case .rightBottom :
-            distanceY = abs(inputTimeKeyY - Float(self.bounds.maxY))
-            distanceX = abs(inputTimeKeyX - Float(self.bounds.maxX))
             
-            let y =  inputTimeKeyY - Float(self.bounds.midY)
-            let x =  inputTimeKeyX - Float(self.bounds.midX)
+        case .rightBottom :
+            if inputTimeKeyX < midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
+            if inputTimeKeyY < midY {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
+            distanceY = abs(touchPointY - Float(maxY))
+            distanceX = abs(touchPointX - Float(maxX))
+
+            let y =  touchPointY - Float(minY)
+            let x =  touchPointX - Float(minX)
             slope =  y / x
         case .top:
-            distanceY = inputTimeKeyY
+            if inputTimeKeyY > midY {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
+            
+            distanceY = touchPointY - Float(minY)
         case .right:
-            distanceX = abs(Float(self.bounds.maxX) - inputTimeKeyX)
+            if inputTimeKeyX < midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
+            
+            distanceX = abs(Float(maxX) - touchPointX)
         case .bottom:
-            distanceY = abs(Float(self.bounds.maxY) - inputTimeKeyY)
+            if inputTimeKeyY < midY {
+                touchPointY = Float(midY)
+            } else {
+                touchPointY = Float(inputTimeKeyY)
+            }
+            
+            distanceY = abs(Float(maxY) - touchPointY)
         case .left:
-            distanceX = inputTimeKeyX
+            if inputTimeKeyX > midX {
+                touchPointX = Float(midX)
+            } else {
+                touchPointX = Float(inputTimeKeyX)
+            }
+            
+            distanceX = touchPointX - Float(minX)
         default :
             break
         }
@@ -239,14 +341,6 @@ class MiCardView: UIView {
 //        let img3 = pageCurlWithShadowTransition(inputImage: img1!, inputTargetImage: img2!, inputBacksideImage: img2!, inputTimeKey: NSNumber(value: Float(30/100)))
         
     }
-
-    
-//    private func updateCurlImageView() {
-//        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
-//        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: mirrorImg, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
-//        poker.image = img3
-//    }
-//
     
     private func playPokerAnimation(poker: PokerImageView, option: AnimationOptions) {
         //        do {
@@ -321,37 +415,32 @@ extension MiCardView {
         if isAnimating {
             return
         }
-        let quarterHeight = 1/4 * self.frame.height
-        let quarterWidth = 1/4 * self.frame.width
-        let midX = self.bounds.midX
-        let midY = self.bounds.midY
         if (self.point(inside: point, with: nil)) {
             if (self.point(inside: point, with: nil)) {
-                if point.y > midY + quarterHeight &&  point.x < midX - quarterWidth {
+                if point.y > midY + quarterHeight && point.y < maxY && point.x < midX - quarterWidth && point.x > minX {
                     self.enterDragingCorner = .leftBottom
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
-//                    self.updateCurlPoker( point.y , point.x)
-                } else if point.y > midY + quarterHeight && point.x > midX + quarterWidth {
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                } else if point.y > midY + quarterHeight && point.y < maxY && point.x > midX + quarterWidth && point.x < maxX {
                     self.enterDragingCorner = .rightBottom
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
-                } else if point.y < midY - quarterHeight && point.x < midX - quarterWidth {
+                   self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                } else if point.y < midY - quarterHeight && point.y > minY && point.x < midX - quarterWidth && point.x > minX {
                     self.enterDragingCorner = .leftTop
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
-                }else if point.y < midY - quarterHeight && point.x > midX + quarterWidth {
+                   self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                }else if point.y < midY - quarterHeight && point.y > minY && point.x > midX + quarterWidth && point.x < maxX {
                     self.enterDragingCorner = .rightTop
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
-                } else if point.y < midY - quarterHeight && abs(point.x - midX) < quarterWidth {
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                } else if point.y < midY - quarterHeight && point.y > minY && abs(point.x - midX) < quarterWidth {
                     self.enterDragingCorner = .top
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
+                   self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 }else if point.x > midX + quarterWidth && abs(point.y - midY) < quarterHeight {
                     self.enterDragingCorner = .right
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 } else if point.y > midY + quarterHeight && abs(point.x - midX) < quarterWidth {
                     self.enterDragingCorner = .bottom
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 }else if point.x < midX - quarterWidth && abs(point.y - midY) < quarterHeight {
                     self.enterDragingCorner = .left
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x), inputTimeKeyY: Float(point.y))
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 }
             }
         }
@@ -362,64 +451,57 @@ extension MiCardView {
         if isAnimating {
             return
         }
-        let quarterHeight = 0 * self.frame.height
-        let quarterWidth = 0 * self.frame.width
-        let midX = self.bounds.midX
-        let midY = self.bounds.midY
+       
         if (self.point(inside: point, with: nil)) {
             if self.enterDragingCorner != .none {
-                switch self.enterDragingCorner {
-                case .leftTop:
-                    if point.y > midY + quarterHeight || point.x > midX + quarterWidth {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .rightTop:
-                    if point.y > midY + quarterHeight || point.x < midX - quarterWidth {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .rightBottom:
-                    if point.y < midY - quarterHeight || point.x < midX - quarterWidth {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .leftBottom:
-                    if point.y < midY - quarterHeight || point.x > midX + quarterWidth {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .top:
-                    if  point.y > midY + quarterHeight {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .right:
-                    if  point.x < midX - quarterWidth  {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .bottom:
-                    if  point.y < midY - quarterHeight  {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                case .left:
-                    if  point.x > midX + quarterWidth  {
-//                        flipCard()
-                        return
-                    }
-                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-                default:
-                    break
-                }
+//                switch self.enterDragingCorner {
+//                case .leftTop:
+//                    if Float(point.y) > midY + quarterHeight && Float(point.x) > midX + quarterWidth {
+//                        return
+//                    }
+                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+//                case .rightTop:
+                   
+//                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+//                case .rightBottom:
+//                    if point.y < midY - quarterHeight || point.x < midX - quarterWidth {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                case .leftBottom:
+//                    if point.y < midY - quarterHeight || point.x > midX + quarterWidth {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                case .top:
+//                    if  point.y > midY + quarterHeight {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                case .right:
+//                    if  point.x < midX - quarterWidth  {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                case .bottom:
+//                    if  point.y < midY - quarterHeight  {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                case .left:
+//                    if  point.x > midX + quarterWidth  {
+////                        flipCard()
+//                        return
+//                    }
+//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
+//                default:
+//                    break
+//                }
             }
         }
     }

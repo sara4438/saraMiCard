@@ -16,18 +16,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-pz-1FE" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
-                                <rect key="frame" x="103.5" y="308" width="207" height="290"/>
+                                <rect key="frame" x="0.0" y="158" width="414" height="580"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" multiplier="25:35" id="b9z-td-tN8"/>
+                                    <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" multiplier="25:35" id="Dkb-3K-ogI"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="1ia-n6-5Nf"/>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="rBb-f0-gbv"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1ia-n6-5Nf"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rBb-f0-gbv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
