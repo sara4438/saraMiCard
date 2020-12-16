@@ -28,7 +28,7 @@
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="nWZ-ge-vA0" firstAttribute="centerX" secondItem="3F6-eD-Fuf" secondAttribute="centerX" id="MHe-I6-v6q"/>
                         <constraint firstItem="nWZ-ge-vA0" firstAttribute="centerY" secondItem="3F6-eD-Fuf" secondAttribute="centerY" multiplier="1.2" id="PdL-op-dcv"/>
@@ -37,7 +37,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uob-J5-vlh">
                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="Icc-E4-bxJ"/>
                         <constraint firstAttribute="width" constant="20" id="mOK-7S-yEr"/>
