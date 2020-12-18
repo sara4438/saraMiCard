@@ -30,6 +30,7 @@ class MiCardView: UIView {
     private var quarterWidth: CGFloat = 0.0
     private var slope : Float = 0.0
     @IBOutlet weak var poker: PokerImageView!
+    @IBOutlet weak var finalPoker: PokerImageView!
     private let backImage = UIImage(named: "pic_poker_game_150x210")
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
     private let testImg = UIImage(named: "pic_pokerDiamond_10_game_150x210")
@@ -85,7 +86,16 @@ class MiCardView: UIView {
         print("aaaaamidX", self.midX, "midY:", self.midY)
         print("aaaaaminX", self.minX, "minY:", self.minY)
         print("aaaaawidth", self.quarterWidth, "height:",self.quarterHeight)
+        self.updateCurlImageView()
         
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+        self.poker.isHidden = false
+        self.finalPoker.isHidden = true
+        self.distanceX = 0
+        self.distanceY = 0
+        updateCurlImageView()
     }
     
     func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
@@ -137,7 +147,7 @@ class MiCardView: UIView {
     
     private func updateCurlImageView() {
 //        var mirrorImg = UIImage(cgImage: self.convertUIImageToCGImage(uiImage: self.frontImage!) , scale: 1.0, orientation: .upMirrored)
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 270), slope: slope)
         poker.image = img3
     }
 
@@ -188,8 +198,18 @@ class MiCardView: UIView {
         filter.setValue(1, forKey: "inputShadowAmount")
         //        filter.setValue(inputShadowExtent, forKey: "inputShadowExtent")
         
+        // 關鍵在這裡
+//        filter.accessibilityElementIsFocused()
         let output = filter.outputImage
-        let cgimg = self.context.createCGImage(output!,from: output!.extent)
+        var extent = output!.extent
+        extent.origin.y = -20
+        extent.origin.x = -35
+        extent.size.height = 218 * 1.2
+        extent.size.width = 158 * 1.4
+        
+        print(extent)
+        let cgimg = self.context.createCGImage(output!,from: extent)
+        
         let processedImage = UIImage(cgImage: cgimg!)
         return processedImage
     }
@@ -220,11 +240,6 @@ class MiCardView: UIView {
            self.timer?.resume()
            
        }
-    
-    private func setReleaseCurlImageView() {
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: self.frontImage!, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
-        poker.image = img3
-    }
     
     private func setCurlImageView(inputTimeKeyX: CGFloat, inputTimeKeyY: CGFloat ) {
         var touchPointX: Float = 0
@@ -351,7 +366,7 @@ class MiCardView: UIView {
 //        } catch {
 //            print("poker view currentTable error")
 //        }
-        poker.transform = CGAffineTransform(scaleX: 1, y: 1)
+        poker.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         UIView.transition(with: poker, duration: 0.3, options: option, animations: {
             poker.image = UIImage(named: "pic_pokerDiamond_04_game_150x210")
         }, completion: { [weak self] finished in
@@ -359,12 +374,13 @@ class MiCardView: UIView {
                 return
             }
             UIView.animate(withDuration: 0.2, animations: {
-                self!.poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 360).concatenating(CGAffineTransform(scaleX: 1, y: 1))
-                self!.constraintX.constant = 0
-                self!.constraintY.constant = 0
+                self?.poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 360).concatenating(CGAffineTransform(scaleX: 1, y: 1))
+                self?.constraintX.constant = 0
+                self?.constraintY.constant = 0
                 poker.image =  UIImage(named: "pic_pokerDiamond_04_game_150x210")
-                
-                self!.layoutIfNeeded()
+                poker.isHidden = true
+                self?.finalPoker.isHidden = false
+                self?.layoutIfNeeded()
             })
         })
     }
@@ -402,6 +418,7 @@ class MiCardView: UIView {
     private func flipCard() {
          self.playPokerAnimation(poker: self.poker!, option: .transitionFlipFromBottom) //咪完開牌橫放
         self.enterDragingCorner = .none
+        
     }
     
     deinit {
@@ -454,54 +471,7 @@ extension MiCardView {
        
         if (self.point(inside: point, with: nil)) {
             if self.enterDragingCorner != .none {
-//                switch self.enterDragingCorner {
-//                case .leftTop:
-//                    if Float(point.y) > midY + quarterHeight && Float(point.x) > midX + quarterWidth {
-//                        return
-//                    }
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
-//                case .rightTop:
-                   
-//                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
-//                case .rightBottom:
-//                    if point.y < midY - quarterHeight || point.x < midX - quarterWidth {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                case .leftBottom:
-//                    if point.y < midY - quarterHeight || point.x > midX + quarterWidth {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                case .top:
-//                    if  point.y > midY + quarterHeight {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                case .right:
-//                    if  point.x < midX - quarterWidth  {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                case .bottom:
-//                    if  point.y < midY - quarterHeight  {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                case .left:
-//                    if  point.x > midX + quarterWidth  {
-////                        flipCard()
-//                        return
-//                    }
-//                    self.setCurlImageView(inputTimeKeyX: Float(point.x ), inputTimeKeyY: Float(point.y ))
-//                default:
-//                    break
-//                }
             }
         }
     }
