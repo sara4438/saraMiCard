@@ -63,8 +63,6 @@ class MiCardView: UIView {
     
     override func layoutSubviews() {
         updateFinalPokerXY()
-        self.quarterHeight = 1/4 * self.finalPoker.frame.height
-        self.quarterWidth = 1/4 * self.finalPoker.frame.width
         print("aaaaamidX", self.midX, "midY:", self.midY)
         print("aaaaaminX", self.minX, "minY:", self.minY)
         print("aaaaawidth", self.quarterWidth, "height:",self.quarterHeight)
@@ -79,6 +77,9 @@ class MiCardView: UIView {
         self.minY = self.finalPoker.frame.minY
         self.maxX = self.finalPoker.frame.maxX
         self.maxY = self.finalPoker.frame.maxY
+        self.quarterHeight = 1/4 * self.finalPoker.frame.height
+        self.quarterWidth = 1/4 * self.finalPoker.frame.width
+        print("bbbbwidth", self.quarterWidth, "height:",self.quarterHeight)
     }
     
     @IBAction func reset(_ sender: Any) {
@@ -86,8 +87,11 @@ class MiCardView: UIView {
         self.finalPoker.isHidden = true
         self.distanceX = 0
         self.distanceY = 0
+        self.state = .vertical
+        self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
+        self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
         updateCurlImageView()
-        
+        updateFinalPokerXY()
     }
     
     func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
@@ -149,67 +153,39 @@ class MiCardView: UIView {
         
         var inputAngle: NSNumber = 0
         var n : Float = 0
-        if self.state == .vertical{
-            switch self.enterDragingCorner {
-                case .leftTop:
-                    n = -7.833 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n
-
-                case .rightTop:
-                    n = -1.57 - Float(sin(getAngle(slope)) * 1.57)
-                    n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n
-
-                case .rightBottom:
-                    n = -4.71 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n
-
-                case .leftBottom:
-                     n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
-                     n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
-                case .top:
-                    n = -1.57 // or -7.833
-                case .right:
-                    n = -3.14
-                case .bottom:
-                    n = -4.71
-                case .left:
-                    n = -6.28
-                default:
-                    break
-            }
-        } else {
-            switch self.enterDragingCorner {
-                case .leftTop:
-                    n = -7.833 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n
-
-                case .rightTop:
-                    n = -1.57 - Float(sin(getAngle(slope)) * 1.57)
-                    n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n
-
-                case .rightBottom:
-                    n = -4.71 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n
-
-                case .leftBottom:
-                     n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
-                     n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n
-                case .top:
-//                    n = -1.57 // or -7.833
-                    n = -6.28
-                case .right:
-//                    n = -3.14
-                    n = -1.57
-                case .bottom:
-//                    n = -4.71
-                    n = -3.14
-                case .left:
-//                    n = -6.28
-                    n = -4.71
-                default:
-                    break
-            }
+        var bias: Float = 0
+        
+        if self.state == .horizontal{
+            bias = 1.57
         }
+            switch self.enterDragingCorner {
+                case .leftTop:
+                    n = -7.833 + Float(sin(getAngle(slope)) * 1.57)
+                    n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n + bias
+
+                case .rightTop:
+                    n = -1.57 - Float(sin(getAngle(slope)) * 1.57)
+                    n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n + bias
+
+                case .rightBottom:
+                    n = -4.71 + Float(sin(getAngle(slope)) * 1.57)
+                    n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n + bias
+
+                case .leftBottom:
+                     n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
+                     n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n + bias
+                case .top:
+                    n = -1.57 + bias // or -7.833
+                case .right:
+                    n = -3.14 + bias
+                case .bottom:
+                    n = -4.71 + bias
+                case .left:
+                    n = -6.28 + bias
+                default:
+                    break
+            }
+        
         inputAngle = NSNumber(value: n )
         filter.setDefaults()
         filter.setValue(CIImage(image: inputImage), forKey: kCIInputImageKey)
@@ -228,8 +204,8 @@ class MiCardView: UIView {
 //        filter.accessibilityElementIsFocused()
         let output = filter.outputImage
         var extent = output!.extent
-        extent.origin.y = -20
-        extent.origin.x = -35
+        extent.origin.y = -10
+        extent.origin.x = -25
         extent.size.height = 218 * 1.2
         extent.size.width = 158 * 1.4
         
@@ -271,42 +247,42 @@ class MiCardView: UIView {
         var touchPointX: Float = 0
         var touchPointY: Float = 0
         switch self.enterDragingCorner {
-        case .leftTop:
-            if inputTimeKeyX > midX {
-                touchPointX = Float(midX+10)
-            } else {
-                touchPointX = Float(inputTimeKeyX)
-            }
-            if inputTimeKeyY > midY  {
-                touchPointY = Float(midY+10)
-            } else {
-                touchPointY = Float(inputTimeKeyY)
-            }
-            
-            distanceY = touchPointY - Float(minY)
-            distanceX = touchPointX -  Float(minX)
-            let y =  Float(maxY) - touchPointY
-            let x =  Float(maxX) - touchPointX
-            
-            slope =  y / x
-        case .rightTop:
-            if inputTimeKeyY > midY {
-                touchPointY = Float(midY)
-            } else {
-                touchPointY = Float(inputTimeKeyY)
-            }
-            if inputTimeKeyX < midX {
-                touchPointX = Float(midX)
-            } else {
-                touchPointX = Float(inputTimeKeyX)
-            }
-            
-            distanceY = abs(touchPointY - Float(minY))
-            distanceX = abs(touchPointX - Float(maxX))
-
-            let y = Float(maxY) - touchPointY
-            let x = touchPointX - Float(minX)
-            slope =  y / x
+//        case .leftTop:
+//            if inputTimeKeyX > midX {
+//                touchPointX = Float(midX+10)
+//            } else {
+//                touchPointX = Float(inputTimeKeyX)
+//            }
+//            if inputTimeKeyY > midY  {
+//                touchPointY = Float(midY+10)
+//            } else {
+//                touchPointY = Float(inputTimeKeyY)
+//            }
+//
+//            distanceY = touchPointY - Float(minY)
+//            distanceX = touchPointX -  Float(minX)
+//            let y =  Float(maxY) - touchPointY
+//            let x =  Float(maxX) - touchPointX
+//
+//            slope =  y / x
+//        case .rightTop:
+//            if inputTimeKeyY > midY {
+//                touchPointY = Float(midY)
+//            } else {
+//                touchPointY = Float(inputTimeKeyY)
+//            }
+//            if inputTimeKeyX < midX {
+//                touchPointX = Float(midX)
+//            } else {
+//                touchPointX = Float(inputTimeKeyX)
+//            }
+//
+//            distanceY = abs(touchPointY - Float(minY))
+//            distanceX = abs(touchPointX - Float(maxX))
+//
+//            let y = Float(maxY) - touchPointY
+//            let x = touchPointX - Float(minX)
+//            slope =  y / x
         case .leftBottom:
             if inputTimeKeyX > midX {
                 touchPointX = Float(midX)
@@ -343,14 +319,14 @@ class MiCardView: UIView {
             let y =  touchPointY - Float(minY)
             let x =  touchPointX - Float(minX)
             slope =  y / x
-        case .top:
-            if inputTimeKeyY > midY {
-                touchPointY = Float(midY)
-            } else {
-                touchPointY = Float(inputTimeKeyY)
-            }
-            
-            distanceY = touchPointY - Float(minY)
+//        case .top:
+//            if inputTimeKeyY > midY {
+//                touchPointY = Float(midY)
+//            } else {
+//                touchPointY = Float(inputTimeKeyY)
+//            }
+//
+//            distanceY = touchPointY - Float(minY)
         case .right:
             if inputTimeKeyX < midX {
                 touchPointX = Float(midX)
@@ -390,11 +366,15 @@ class MiCardView: UIView {
 ////                AudioManager.instance.playSound(soundCase: .PokerDealing)
 ////            }
 //        } catch {
-//            print("poker view currentTable error")
-//        }
-        poker.transform = CGAffineTransform(scaleX: 1, y: 1)
+        //            print("poker view currentTable error")
+        //        }
+        poker.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         UIView.transition(with: poker, duration: 0.3, options: option, animations: {
             poker.image = UIImage(named: "pic_pokerDiamond_04_game_150x210")
+            if self.state == .horizontal {
+                poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
+            }
+            
         }, completion: { [weak self] finished in
             if (!finished) {
                 return
@@ -405,6 +385,7 @@ class MiCardView: UIView {
 //                self?.constraintY.constant = 0
                 poker.image =  UIImage(named: "pic_pokerDiamond_04_game_150x210")
                 poker.isHidden = true
+//                poker.transform = CGAffineTransform(scaleX: 1.33, y: 1.33)
                 self?.finalPoker.isHidden = false
                 self?.layoutIfNeeded()
             })
@@ -442,29 +423,40 @@ class MiCardView: UIView {
     
     
     private func flipCard() {
-        var animate : UIView.AnimationOptions?
+        var verticalAnimate : UIView.AnimationOptions?
+        var horizontalAnimate: UIView.AnimationOptions?
         switch self.enterDragingCorner {
-            case .leftTop:
-                animate = .transitionFlipFromLeft
-            case .rightTop:
-                animate = .transitionFlipFromRight
+//            case .leftTop:
+//                verticalAnimate = .transitionFlipFromLeft
+//                horizontalAnimate = .transitionFlipFromTop
+//            case .rightTop:
+//                verticalAnimate = .transitionFlipFromRight
+//                horizontalAnimate = .transitionFlipFromBottom
             case .rightBottom:
-                animate = .transitionFlipFromRight
+                verticalAnimate = .transitionFlipFromRight
+                horizontalAnimate = .transitionFlipFromBottom
             case .leftBottom:
-                animate = .transitionFlipFromLeft
-            case .top:
-                animate = .transitionFlipFromBottom
+                verticalAnimate = .transitionFlipFromLeft
+                horizontalAnimate = .transitionFlipFromTop
+//            case .top:
+//                verticalAnimate = .transitionFlipFromBottom
+//                horizontalAnimate = .transitionFlipFromLeft
             case .right:
-                animate = .transitionFlipFromRight
+                verticalAnimate = .transitionFlipFromRight
+                horizontalAnimate = .transitionFlipFromBottom
             case .bottom:
-                animate = .transitionFlipFromTop
+                verticalAnimate = .transitionFlipFromLeft
+                horizontalAnimate = .transitionFlipFromTop
             case .left:
-                animate = .transitionFlipFromLeft
+                verticalAnimate = .transitionFlipFromLeft
+                horizontalAnimate = .transitionFlipFromTop
             default:
-                animate = .transitionFlipFromLeft
+                verticalAnimate = .transitionFlipFromLeft
+                horizontalAnimate = .transitionFlipFromTop
                 break
         }
-        self.playPokerAnimation(poker: self.poker!, option: animate!)
+//        self.playPokerAnimation(poker: self.poker!, option: verticalAnimate!)
+        self.playPokerAnimation(poker: self.poker!, option: self.state == .vertical ? verticalAnimate! : horizontalAnimate!)
         self.enterDragingCorner = .none
     }
     
@@ -474,7 +466,9 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
 //                self.poker.frame = CGRect(x: 0, y: 0, width: self.poker.frame.height, height: self.poker.frame.width)
                 self.poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
+                self.poker.frame.origin.y = self.poker.frame.origin.y + 18
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
+                
                 
                 self.updateFinalPokerXY()
                 print("sssschangeToH", self.minX, self.minY)
@@ -509,7 +503,7 @@ extension MiCardView {
         }
         if (self.point(inside: point, with: nil)) {
             if (self.point(inside: point, with: nil)) {
-                if point.y > midY + quarterHeight && point.y < maxY && point.x < midX - quarterWidth && point.x > minX {
+                if point.y > midY + quarterHeight && point.y < maxY && point.x <= midX - quarterWidth && point.x >= minX {
                     self.enterDragingCorner = .leftBottom
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 } else if point.y > midY + quarterHeight && point.y < maxY && point.x > midX + quarterWidth && point.x < maxX {
@@ -524,13 +518,13 @@ extension MiCardView {
                 } else if point.y < midY - quarterHeight && point.y > minY && abs(point.x - midX) < quarterWidth {
                     self.enterDragingCorner = .top
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
-                }else if point.x > midX + quarterWidth && abs(point.y - midY) < quarterHeight {
+                }else if point.x > midX + quarterWidth && point.x < maxX && abs(point.y - midY) < quarterHeight {
                     self.enterDragingCorner = .right
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
-                } else if point.y > midY + quarterHeight && abs(point.x - midX) < quarterWidth {
+                } else if point.y > midY + quarterHeight && point.y < maxY && abs(point.x - midX) < quarterWidth {
                     self.enterDragingCorner = .bottom
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
-                }else if point.x < midX - quarterWidth && abs(point.y - midY) < quarterHeight {
+                }else if point.x < midX - quarterWidth && point.x > minX && abs(point.y - midY) < quarterHeight {
                     self.enterDragingCorner = .left
                     self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 }
