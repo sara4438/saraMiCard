@@ -529,52 +529,45 @@ extension MiCardView {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .rightTop:
                     if point.y > self.bounds.midY || point.x < self.bounds.midX {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .rightBottom:
                     if point.y < self.bounds.midY || point.x < self.bounds.midX {
                         flipCard()
                         return
                     }
-                     self.flipBackAnimation()
                 case .leftBottom:
                     if point.y < self.bounds.midY || point.x > self.bounds.midX {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .top:
                     if  point.y > self.bounds.midY  {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .right:
                     if  point.x < self.bounds.midX  {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .bottom:
                     if  point.y < self.bounds.midY  {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 case .left:
                     if  point.x > self.bounds.midX  {
                         flipCard()
                         return
                     }
-                    self.flipBackAnimation()
                 default:
                     break
                 }
+                self.flipBackAnimation()
             }
         }
     }
