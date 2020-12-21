@@ -226,6 +226,14 @@ class MiCardView: UIView {
     private func setCurlImageView(inputTimeKeyX: CGFloat, inputTimeKeyY: CGFloat ) {
         var touchPointX: Float = 0
         var touchPointY: Float = 0
+        var stopCurlingWidth: CGFloat = self.quarterWidth
+        var stopCurlingHeight: CGFloat = 1.5 * self.quarterHeight
+        if self.state == .horizontal {
+            stopCurlingWidth = 0
+        } else {
+            stopCurlingHeight = 0
+        }
+        
         switch self.enterDragingCorner {
 //        case .leftTop:
 //            if inputTimeKeyX > midX {
@@ -264,13 +272,13 @@ class MiCardView: UIView {
 //            let x = touchPointX - Float(minX)
 //            slope =  y / x
         case .leftBottom:
-            if inputTimeKeyX > midX {
-                touchPointX = Float(midX)
+            if inputTimeKeyX > midX + stopCurlingWidth{
+                touchPointX = Float( midX + stopCurlingWidth)
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
-            if inputTimeKeyY < midY {
-                touchPointY = Float(midY)
+            if inputTimeKeyY < midY - stopCurlingHeight{
+                touchPointY = Float(midY - stopCurlingHeight)
             } else {
                 touchPointY = Float(inputTimeKeyY)
             }
@@ -283,13 +291,13 @@ class MiCardView: UIView {
             slope =  y / x
             
         case .rightBottom :
-            if inputTimeKeyX < midX {
-                touchPointX = Float(midX)
+            if inputTimeKeyX < midX - stopCurlingWidth{
+                touchPointX = Float(midX - stopCurlingWidth)
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
-            if inputTimeKeyY < midY {
-                touchPointY = Float(midY)
+            if inputTimeKeyY < midY - stopCurlingHeight{
+                touchPointY = Float(midY - stopCurlingHeight)
             } else {
                 touchPointY = Float(inputTimeKeyY)
             }
@@ -308,24 +316,24 @@ class MiCardView: UIView {
 //
 //            distanceY = touchPointY - Float(minY)
         case .right:
-            if inputTimeKeyX < midX {
-                touchPointX = Float(midX)
+            if inputTimeKeyX < midX - stopCurlingWidth {
+                touchPointX = Float(midX - stopCurlingWidth )
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
             
             distanceX = abs(Float(maxX) - touchPointX)
         case .bottom:
-            if inputTimeKeyY < midY {
-                touchPointY = Float(midY)
+            if inputTimeKeyY < midY - stopCurlingHeight {
+                touchPointY = Float(midY - stopCurlingHeight )
             } else {
                 touchPointY = Float(inputTimeKeyY)
             }
             
             distanceY = abs(Float(maxY) - touchPointY)
         case .left:
-            if inputTimeKeyX > midX {
-                touchPointX = Float(midX)
+            if inputTimeKeyX > midX + stopCurlingWidth {
+                touchPointX = Float(midX + stopCurlingWidth )
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
