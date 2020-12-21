@@ -62,12 +62,8 @@ class MiCardView: UIView {
     }
     
     override func layoutSubviews() {
-        updateFinalPokerXY()
-        print("aaaaamidX", self.midX, "midY:", self.midY)
-        print("aaaaaminX", self.minX, "minY:", self.minY)
-        print("aaaaawidth", self.quarterWidth, "height:",self.quarterHeight)
         self.updateCurlImageView()
-        print("sssslayout", minX, minY)
+        self.updateFinalPokerXY()
     }
     
     public func updateFinalPokerXY() {
@@ -79,7 +75,6 @@ class MiCardView: UIView {
         self.maxY = self.finalPoker.frame.maxY
         self.quarterHeight = 1/4 * self.finalPoker.frame.height
         self.quarterWidth = 1/4 * self.finalPoker.frame.width
-        print("bbbbwidth", self.quarterWidth, "height:",self.quarterHeight)
     }
     
     @IBAction func reset(_ sender: Any) {
@@ -90,26 +85,11 @@ class MiCardView: UIView {
         self.state = .vertical
         self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
+        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y + 20
         updateCurlImageView()
         updateFinalPokerXY()
     }
-    
-    func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
-          var cgImage = uiImage.cgImage
 
-          if cgImage == nil {
-              let ciImage = uiImage.ciImage
-              cgImage = self.convertCIImageToCGImage(ciImage: ciImage!)
-          }
-          return cgImage!
-      }
-      
-      func convertCIImageToCGImage(ciImage:CIImage) -> CGImage{
-          let ciContext = CIContext.init()
-          let cgImage:CGImage = ciContext.createCGImage(ciImage, from: ciImage.extent)!
-          return cgImage
-      }
-    
     private func setPokerImageView(poker: PokerImageView, fileName: String, option: AnimationOptions) {
         
         if (poker.usedImageFileName == fileName) {
@@ -142,7 +122,7 @@ class MiCardView: UIView {
     }
     
     private func updateCurlImageView() {
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 270), slope: slope)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 265), slope: slope)
         poker.image = img3
     }
 
@@ -158,33 +138,33 @@ class MiCardView: UIView {
         if self.state == .horizontal{
             bias = 1.57
         }
-            switch self.enterDragingCorner {
-                case .leftTop:
-                    n = -7.833 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n + bias
-
-                case .rightTop:
-                    n = -1.57 - Float(sin(getAngle(slope)) * 1.57)
-                    n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n + bias
-
-                case .rightBottom:
-                    n = -4.71 + Float(sin(getAngle(slope)) * 1.57)
-                    n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n + bias
-
-                case .leftBottom:
-                     n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
-                     n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n + bias
-                case .top:
-                    n = -1.57 + bias // or -7.833
-                case .right:
-                    n = -3.14 + bias
-                case .bottom:
-                    n = -4.71 + bias
-                case .left:
-                    n = -6.28 + bias
-                default:
-                    break
-            }
+        switch self.enterDragingCorner {
+            case .leftTop:
+                n = -7.833 + Float(sin(getAngle(slope)) * 1.57)
+                n = n > -6.28  ? -6.28 : n < -7.833 ? -7.833: n + bias
+                
+            case .rightTop:
+                n = -1.57 - Float(sin(getAngle(slope)) * 1.57)
+                n = n < -3.14  ? -3.14 : n > -1.57 ? -1.57 : n + bias
+                
+            case .rightBottom:
+                n = -4.71 + Float(sin(getAngle(slope)) * 1.57)
+                n = n > -3.14  ? -3.14 : n < -4.71 ? -4.71 : n + bias
+                
+            case .leftBottom:
+                n = -4.71 - Float(sin(getAngle(slope)) * 1.57)
+                n = n > -4.71  ? -4.71 : n < -6.28 ? -6.28 : n + bias
+            case .top:
+                n = -1.57 + bias // or -7.833
+            case .right:
+                n = -3.14 + bias
+            case .bottom:
+                n = -4.71 + bias
+            case .left:
+                n = -6.28 + bias
+            default:
+                break
+        }
         
         inputAngle = NSNumber(value: n )
         filter.setDefaults()
@@ -205,7 +185,7 @@ class MiCardView: UIView {
         let output = filter.outputImage
         var extent = output!.extent
         extent.origin.y = -10
-        extent.origin.x = -25
+        extent.origin.x = -30
         extent.size.height = 218 * 1.2
         extent.size.width = 158 * 1.4
         
@@ -385,7 +365,7 @@ class MiCardView: UIView {
 //                self?.constraintY.constant = 0
                 poker.image =  UIImage(named: "pic_pokerDiamond_04_game_150x210")
                 poker.isHidden = true
-//                poker.transform = CGAffineTransform(scaleX: 1.33, y: 1.33)
+                poker.transform = CGAffineTransform(scaleX: 1.33, y: 1.33)
                 self?.finalPoker.isHidden = false
                 self?.layoutIfNeeded()
             })
@@ -428,35 +408,25 @@ class MiCardView: UIView {
         switch self.enterDragingCorner {
 //            case .leftTop:
 //                verticalAnimate = .transitionFlipFromLeft
-//                horizontalAnimate = .transitionFlipFromTop
 //            case .rightTop:
 //                verticalAnimate = .transitionFlipFromRight
-//                horizontalAnimate = .transitionFlipFromBottom
             case .rightBottom:
                 verticalAnimate = .transitionFlipFromRight
-                horizontalAnimate = .transitionFlipFromBottom
             case .leftBottom:
                 verticalAnimate = .transitionFlipFromLeft
-                horizontalAnimate = .transitionFlipFromTop
 //            case .top:
 //                verticalAnimate = .transitionFlipFromBottom
-//                horizontalAnimate = .transitionFlipFromLeft
             case .right:
                 verticalAnimate = .transitionFlipFromRight
-                horizontalAnimate = .transitionFlipFromBottom
             case .bottom:
-                verticalAnimate = .transitionFlipFromLeft
-                horizontalAnimate = .transitionFlipFromTop
+                verticalAnimate = .transitionFlipFromBottom
             case .left:
                 verticalAnimate = .transitionFlipFromLeft
-                horizontalAnimate = .transitionFlipFromTop
             default:
                 verticalAnimate = .transitionFlipFromLeft
-                horizontalAnimate = .transitionFlipFromTop
                 break
         }
-//        self.playPokerAnimation(poker: self.poker!, option: verticalAnimate!)
-        self.playPokerAnimation(poker: self.poker!, option: self.state == .vertical ? verticalAnimate! : horizontalAnimate!)
+        self.playPokerAnimation(poker: self.poker!, option: verticalAnimate!)
         self.enterDragingCorner = .none
     }
     
@@ -466,9 +436,8 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
 //                self.poker.frame = CGRect(x: 0, y: 0, width: self.poker.frame.height, height: self.poker.frame.width)
                 self.poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-                self.poker.frame.origin.y = self.poker.frame.origin.y + 18
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-                
+                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y - 20
                 
                 self.updateFinalPokerXY()
                 print("sssschangeToH", self.minX, self.minY)
@@ -482,6 +451,7 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
                 self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
+                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y + 20
                 
                  self.updateFinalPokerXY()
                 print("sssschangeToV", self.minX, self.minY)
