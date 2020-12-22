@@ -85,7 +85,7 @@ class MiCardView: UIView {
         self.state = .vertical
         self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y + 20
+        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y 
         updateCurlImageView()
         updateFinalPokerXY()
     }
