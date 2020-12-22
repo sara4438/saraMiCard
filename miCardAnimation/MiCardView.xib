@@ -93,6 +93,12 @@
                         <action selector="changeToVertical:" destination="-1" eventType="touchUpInside" id="NsS-A7-39m"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plan A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySz-yz-ylD">
+                    <rect key="frame" x="288" y="122.5" width="48.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -104,9 +110,11 @@
                 <constraint firstItem="oh0-tT-XvB" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Jb2-lD-QYb"/>
                 <constraint firstAttribute="bottom" secondItem="3F6-eD-Fuf" secondAttribute="bottom" id="M5z-CF-c3T"/>
                 <constraint firstItem="D3t-5N-SI8" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="1.6" id="NSz-0l-JWX"/>
+                <constraint firstItem="ySz-yz-ylD" firstAttribute="top" secondItem="oh0-tT-XvB" secondAttribute="bottom" constant="10" id="Sxe-1A-UVO"/>
                 <constraint firstItem="Ea7-X2-uD8" firstAttribute="width" secondItem="D3t-5N-SI8" secondAttribute="width" id="fzO-e9-8x5"/>
                 <constraint firstItem="oh0-tT-XvB" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.3" id="udh-zB-cMa"/>
                 <constraint firstItem="D3t-5N-SI8" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" multiplier="0.5" id="vWs-u1-Szk"/>
+                <constraint firstItem="ySz-yz-ylD" firstAttribute="centerX" secondItem="oh0-tT-XvB" secondAttribute="centerX" id="wsn-EK-hBJ"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

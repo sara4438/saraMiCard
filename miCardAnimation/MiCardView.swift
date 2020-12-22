@@ -85,7 +85,7 @@ class MiCardView: UIView {
         self.state = .vertical
         self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y 
+        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
         updateCurlImageView()
         updateFinalPokerXY()
     }
@@ -458,7 +458,7 @@ class MiCardView: UIView {
 //                self.poker.frame = CGRect(x: 0, y: 0, width: self.poker.frame.height, height: self.poker.frame.width)
                 self.poker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y - 20
+                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
                 
                 self.updateFinalPokerXY()
                 print("sssschangeToH", self.minX, self.minY)
@@ -472,7 +472,7 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
                 self.poker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y + 20
+                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y 
                 
                  self.updateFinalPokerXY()
                 print("sssschangeToV", self.minX, self.minY)
