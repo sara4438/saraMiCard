@@ -122,7 +122,7 @@ class MiCardView: UIView {
     }
     
     private func updateCurlImageView() {
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 265), slope: slope)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 260), slope: slope)
         poker.image = img3
     }
 
@@ -175,7 +175,7 @@ class MiCardView: UIView {
         filter.setValue(ciImg!, forKey: "inputBacksideImage")
         filter.setValue(inputTimeKey, forKey: kCIInputTimeKey)
         filter.setValue(inputAngle, forKey: kCIInputAngleKey)
-        filter.setValue(5, forKey: kCIInputRadiusKey)
+        filter.setValue(15, forKey: kCIInputRadiusKey)
         filter.setValue(1, forKey: "inputShadowSize")
         filter.setValue(1, forKey: "inputShadowAmount")
         //        filter.setValue(inputShadowExtent, forKey: "inputShadowExtent")
@@ -184,10 +184,10 @@ class MiCardView: UIView {
 //        filter.accessibilityElementIsFocused()
         let output = filter.outputImage
         var extent = output!.extent
-        extent.origin.y = -10
-        extent.origin.x = -30
+        extent.origin.y = -20
+        extent.origin.x = -35
         extent.size.height = 218 * 1.2
-        extent.size.width = 158 * 1.4
+        extent.size.width = 158 * 1.5
         
         print(extent)
         let cgimg = self.context.createCGImage(output!,from: extent)
@@ -226,10 +226,10 @@ class MiCardView: UIView {
     private func setCurlImageView(inputTimeKeyX: CGFloat, inputTimeKeyY: CGFloat ) {
         var touchPointX: Float = 0
         var touchPointY: Float = 0
-        var stopCurlingWidth: CGFloat = self.quarterWidth
-        var stopCurlingHeight: CGFloat = 1.5 * self.quarterHeight
+        var stopCurlingWidth: CGFloat = 1.2 * self.quarterWidth
+        var stopCurlingHeight: CGFloat =  0.7 * self.quarterHeight
         if self.state == .horizontal {
-            stopCurlingWidth = 0
+            stopCurlingWidth = -0.3 * self.quarterWidth
         } else {
             stopCurlingHeight = 0
         }
