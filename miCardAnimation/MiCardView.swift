@@ -129,7 +129,7 @@ class MiCardView: UIView {
         self.bigPoker.image = img3.0
         print("xxxxx, ", img3.1)
         self.bigPoker.frame.origin.x = img3.1 * 0.8 + 90
-        self.bigPoker.frame.origin.y = -img3.2 + 80
+        self.bigPoker.frame.origin.y = -img3.2 + 60
     }
 
     private func pageCurlWithShadowTransition(inputImage: UIImage, inputTargetImage: UIImage, inputBacksideImage: UIImage, inputTimeKey: NSNumber, slope: Float) -> (UIImage?, CGFloat, CGFloat) {
@@ -195,7 +195,7 @@ class MiCardView: UIView {
 //        extent.origin.y = -4
 //        extent.origin.x = -4
 
-        extent.size.height = 218 * 1.2
+        extent.size.height = 218 * 1.3
         extent.size.width = 158 * 1.5
         
         print(extent)
