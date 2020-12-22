@@ -274,11 +274,15 @@ class MiCardView: UIView {
         case .leftBottom:
             if inputTimeKeyX > midX + stopCurlingWidth{
                 touchPointX = Float( midX + stopCurlingWidth)
+            } else if inputTimeKeyX < minX {
+                touchPointX = Float(minX)
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
             if inputTimeKeyY < midY - stopCurlingHeight{
                 touchPointY = Float(midY - stopCurlingHeight)
+            } else if inputTimeKeyY > maxY {
+                touchPointY = Float(maxY)
             } else {
                 touchPointY = Float(inputTimeKeyY)
             }
@@ -293,11 +297,15 @@ class MiCardView: UIView {
         case .rightBottom :
             if inputTimeKeyX < midX - stopCurlingWidth{
                 touchPointX = Float(midX - stopCurlingWidth)
+            } else if inputTimeKeyX > maxX {
+                touchPointX = Float(maxX)
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
             if inputTimeKeyY < midY - stopCurlingHeight{
                 touchPointY = Float(midY - stopCurlingHeight)
+            } else if inputTimeKeyY > maxY {
+                 touchPointY = Float(maxY)
             } else {
                 touchPointY = Float(inputTimeKeyY)
             }
@@ -318,15 +326,18 @@ class MiCardView: UIView {
         case .right:
             if inputTimeKeyX < midX - stopCurlingWidth {
                 touchPointX = Float(midX - stopCurlingWidth )
+            } else if inputTimeKeyX > maxX {
+                touchPointX = Float(maxX)
             } else {
                 touchPointX = Float(inputTimeKeyX)
             }
-            
             distanceX = abs(Float(maxX) - touchPointX)
         case .bottom:
             if inputTimeKeyY < midY - stopCurlingHeight {
                 touchPointY = Float(midY - stopCurlingHeight )
-            } else {
+            } else if inputTimeKeyY > maxY {
+                touchPointY = Float(maxY)
+            }else{
                 touchPointY = Float(inputTimeKeyY)
             }
             
@@ -334,7 +345,9 @@ class MiCardView: UIView {
         case .left:
             if inputTimeKeyX > midX + stopCurlingWidth {
                 touchPointX = Float(midX + stopCurlingWidth )
-            } else {
+            } else if inputTimeKeyX < minX {
+                touchPointX = Float(minX)
+            }else{
                 touchPointX = Float(inputTimeKeyX)
             }
             
