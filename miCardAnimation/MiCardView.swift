@@ -26,6 +26,8 @@ class MiCardView: UIView {
     private var minY : CGFloat = 0.0
     private var maxX : CGFloat = 0.0
     private var maxY : CGFloat = 0.0
+    private var bigPokerX: CGFloat = 0.0
+    private var bigPokerY: CGFloat = 0.0
     private var quarterHeight: CGFloat = 0.0
     private var quarterWidth: CGFloat = 0.0
     private var slope : Float = 0.0
@@ -63,6 +65,9 @@ class MiCardView: UIView {
     }
     
     override func layoutSubviews() {
+        bigPokerX = self.bigPoker.frame.origin.x
+        bigPokerY = self.bigPoker.frame.origin.y
+        print("aaaalayout", bigPokerX, bigPokerY)
         self.updateCurlImageView()
         self.updateFinalPokerXY()
         self.finalPoker.isHidden = true
@@ -77,6 +82,7 @@ class MiCardView: UIView {
         self.maxY = self.finalPoker.frame.maxY
         self.quarterHeight = 1/4 * self.finalPoker.frame.height
         self.quarterWidth = 1/4 * self.finalPoker.frame.width
+       
     }
     
     @IBAction func reset(_ sender: Any) {
@@ -125,11 +131,60 @@ class MiCardView: UIView {
     
     private func updateCurlImageView() {
 
-        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 265), slope: slope)
+        let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         self.bigPoker.image = img3.0
-        print("xxxxx, ", img3.1)
-        self.bigPoker.frame.origin.x = img3.1 * 0.8 + 90
-        self.bigPoker.frame.origin.y = -img3.2 + 60
+        print("xxxxxX, ", img3.1, "Y ", img3.2)
+//        print("xxxxxOriginPokerXY ", self.bigPokerX ,  self.bigPokerY)
+        var xFactor : CGFloat = 0.8
+        var yFactor : CGFloat = 0.8
+        var n : CGFloat = 0
+        var m : CGFloat = 0
+        if state == .horizontal {
+            switch self.enterDragingCorner {
+            case .leftBottom:
+//                xFactor = 0.1
+//                yFactor = 0.1
+                m = 10
+                n = -10
+            case .bottom:
+                xFactor = 0
+                n = -8
+            case .left:
+                n = -2
+                m = -5
+            default:
+                break
+            }
+        } else {
+            switch self.enterDragingCorner {
+            case .rightBottom:
+                xFactor = 0.1
+                yFactor = 0.1
+                m = 7
+                n = -7
+            case .right:
+                xFactor = 0
+                n = -8
+            default:
+                break
+            }
+        }
+        
+               
+        self.bigPoker.frame.origin.x = self.bigPokerX + img3.1 * xFactor + n
+        self.bigPoker.frame.origin.y = self.bigPokerY - img3.2 * yFactor + m
+        print("xxxxxChangeFrame ", self.bigPoker.frame.origin.x , self.bigPoker.frame.origin.y)
+//        if img3.1 < 0 && img3.2 < 0 {
+//            return
+//        } else if img3.1 < 0 && img3.2 > 0 {
+//            self.bigPoker.frame.origin.y = -img3.2 * 1
+//        } else if img3.1 > 0 && img3.2 < 0 {
+//            self.bigPoker.frame.origin.x = -img3.1 * 1
+//        } else {
+//
+//        self.bigPoker.frame.origin.x = -img3.1 * 1
+//        self.bigPoker.frame.origin.y = -img3.2 * 1
+//        }
     }
 
     private func pageCurlWithShadowTransition(inputImage: UIImage, inputTargetImage: UIImage, inputBacksideImage: UIImage, inputTimeKey: NSNumber, slope: Float) -> (UIImage?, CGFloat, CGFloat) {
@@ -195,12 +250,12 @@ class MiCardView: UIView {
 //        extent.origin.y = -4
 //        extent.origin.x = -4
 
-        extent.size.height = 218 * 1.3
-        extent.size.width = 158 * 1.5
+        extent.size.height = 218 * 1.2
+        extent.size.width = 158 * 1.3
         
         print(extent)
         let cgimg = self.context.createCGImage(output!,from: extent)
-        
+    
         let processedImage = UIImage(cgImage: cgimg!)
         return (img: processedImage,x: extent.origin.x, y: extent.origin.y )
     }
@@ -236,7 +291,7 @@ class MiCardView: UIView {
         var touchPointX: Float = 0
         var touchPointY: Float = 0
         var stopCurlingWidth: CGFloat = 1.2 * self.quarterWidth
-        var stopCurlingHeight: CGFloat =  0.7 * self.quarterHeight
+        var stopCurlingHeight: CGFloat =  1 * self.quarterHeight
         if self.state == .horizontal {
             stopCurlingWidth = -0.3 * self.quarterWidth
         } else {
@@ -467,10 +522,12 @@ class MiCardView: UIView {
 //                self.poker.frame = CGRect(x: 0, y: 0, width: self.poker.frame.height, height: self.poker.frame.width)
                 self.bigPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y - 20
+//                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
                 
                 self.updateFinalPokerXY()
-                print("sssschangeToH", self.minX, self.minY)
+                print("xxxxxToHorizontalFrame ", self.bigPoker.frame.origin.x , self.bigPoker.frame.origin.y)
+//                self.bigPokerX = self.bigPoker.frame.origin.x
+//                self.bigPokerY = self.bigPoker.frame.origin.y
             }, completion: nil)
         }
     }
@@ -481,7 +538,7 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
                 self.bigPoker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y + 20
+//                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
                 
                  self.updateFinalPokerXY()
                 print("sssschangeToV", self.minX, self.minY)
