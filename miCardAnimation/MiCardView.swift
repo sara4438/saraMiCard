@@ -134,45 +134,64 @@ class MiCardView: UIView {
         let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: mirrorImg, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         self.bigPoker.image = img3.0
         print("xxxxxX, ", img3.1, "Y ", img3.2)
-//        print("xxxxxOriginPokerXY ", self.bigPokerX ,  self.bigPokerY)
-        var xFactor : CGFloat = 0.8
-        var yFactor : CGFloat = 0.8
+        var xFactor : CGFloat = 0.5
+        var yFactor : CGFloat = 0.5
         var n : CGFloat = 0
         var m : CGFloat = 0
         if state == .horizontal {
             switch self.enterDragingCorner {
+            case .rightBottom:
+                xFactor = -0.8
+                yFactor = 0.8
             case .leftBottom:
-//                xFactor = 0.1
-//                yFactor = 0.1
-                m = 10
+                xFactor = 0.1
+                yFactor = 0.1
                 n = -10
-            case .bottom:
-                xFactor = 0
-                n = -8
+                m = 10
+//            case .bottom:
+//                xFactor = 0
+//                yFactor = 0.5
+//                m = -10
+            case .right:
+                xFactor = 0.9
             case .left:
-                n = -2
-                m = -5
+                xFactor = 0
+                yFactor = 0
+//                n = -2
+//                m = -5
+            case .none:
+                xFactor = 0
+                yFactor = 0
+                n = -40
+                m = 40
             default:
                 break
             }
         } else {
             switch self.enterDragingCorner {
-            case .rightBottom:
-                xFactor = 0.1
-                yFactor = 0.1
-                m = 7
-                n = -7
+//            case .rightBottom:
+//                xFactor = 0.6
+//                yFactor = 0.6
+//                m = 7
+//                n = -7
             case .right:
                 xFactor = 0
                 n = -8
+            case .leftBottom:
+                xFactor = 0.5
+                yFactor = 0.5
+                
             default:
                 break
             }
         }
         
-               
+        
         self.bigPoker.frame.origin.x = self.bigPokerX + img3.1 * xFactor + n
         self.bigPoker.frame.origin.y = self.bigPokerY - img3.2 * yFactor + m
+        
+        
+       
         print("xxxxxChangeFrame ", self.bigPoker.frame.origin.x , self.bigPoker.frame.origin.y)
 //        if img3.1 < 0 && img3.2 < 0 {
 //            return
@@ -250,9 +269,8 @@ class MiCardView: UIView {
 //        extent.origin.y = -4
 //        extent.origin.x = -4
 
-        extent.size.height = 218 * 1.2
-        extent.size.width = 158 * 1.3
-        
+//        extent.size.height = 218 * 1.2
+//        extent.size.width = 158 * 1.3
         print(extent)
         let cgimg = self.context.createCGImage(output!,from: extent)
     
@@ -291,7 +309,7 @@ class MiCardView: UIView {
         var touchPointX: Float = 0
         var touchPointY: Float = 0
         var stopCurlingWidth: CGFloat = 1.2 * self.quarterWidth
-        var stopCurlingHeight: CGFloat =  1 * self.quarterHeight
+        var stopCurlingHeight: CGFloat = 0.6 * self.quarterHeight
         if self.state == .horizontal {
             stopCurlingWidth = -0.3 * self.quarterWidth
         } else {
@@ -522,12 +540,14 @@ class MiCardView: UIView {
 //                self.poker.frame = CGRect(x: 0, y: 0, width: self.poker.frame.height, height: self.poker.frame.width)
                 self.bigPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-//                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
                 
+//                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
+                self.updateCurlImageView()
                 self.updateFinalPokerXY()
+                self.finalPoker.frame.origin.x = self.bigPoker.frame.origin.x
+                self.finalPoker.frame.origin.y = self.bigPoker.frame.origin.y
                 print("xxxxxToHorizontalFrame ", self.bigPoker.frame.origin.x , self.bigPoker.frame.origin.y)
-//                self.bigPokerX = self.bigPoker.frame.origin.x
-//                self.bigPokerY = self.bigPoker.frame.origin.y
+                
             }, completion: nil)
         }
     }
