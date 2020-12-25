@@ -98,7 +98,7 @@ class MiCardView: UIView {
         self.state = .vertical
         self.bigPoker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-//        self.finalPoker.frame.origin.y = self.finalPoker.frame. origin.y
+//        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
         updateCurlImageView()
         updateFinalPokerXY()
     }
@@ -163,65 +163,29 @@ class MiCardView: UIView {
             case .right:
                 xFactor = 0.9
             case .left:
-                xFactor = 0
-                yFactor = 0
-//                n = -2
-//                m = -5
+                xFactor = 0.5
+                yFactor = 0.5
             case .none:
                 xFactor = 0
                 yFactor = 0
                 n = -40
                 m = 40
             default:
-                newWidth = self.bigPokerHeight * img3.4 / self.bigPokerHeight
-                newHeight =  self.bigPokerWidth * img3.3 / self.bigPokerWidth
-                break
-            }
-        } else {
-            switch self.enterDragingCorner {
-//            case .rightBottom:
-//                xFactor = 0.6
-//                yFactor = 0.6
-//                m = 7
-//                n = -7
-            case .right:
-                xFactor = 0
-                n = -8
-            case .leftBottom:
-//                xFactor = 0.5
-//                yFactor = 0.5
-                newWidth = self.bigPokerWidth * img3.3 / self.bigPokerWidth
-                newHeight = self.bigPokerHeight * img3.4 / self.bigPokerHeight
-                print("nnnnimg3", img3.3, img3.4)
-                print("nnnnNew", newWidth, newHeight)
-//            case .bottom:
-//                var newFrame = self.bigPoker.frame
-//                self.bigPoker.frame.size.width = self.bigPokerWidth * self.bigPokerWidth / img3.3
-//                self.bigPoker.frame.size.height = self.bigPokerHeight * self.bigPokerHeight / img3.4
-//                self.bigPoker.frame = newFrame
-            default:
                 break
             }
         }
-        
-//        self.bigPoker.frame = CGRect(x: self.bigPokerX + img3.1 * xFactor + n, y: self.bigPokerY - img3.2 * yFactor + m, width: newWidth, height: newHeight)
-//        self.bigPoker.translatesAutoresizingMaskIntoConstraints = false
-//
+        newWidth = self.bigPokerHeight * img3.4 / self.bigPokerHeight
+        newHeight =  self.bigPokerWidth * img3.3 / self.bigPokerWidth
+
         if self.aConstraint != nil {
             self.aConstraint.isActive = false
         }
         
         self.bigPoker.frame.origin.x = self.bigPokerX + img3.1 * xFactor + n
         self.bigPoker.frame.origin.y = self.bigPokerY - img3.2 * yFactor + m
+        
         self.bigPoker.frame.size.width = newWidth
         self.bigPoker.frame.size.height = newHeight
-//        self.bigPoker.widthAnchor.constraint(equalToConstant: newWidth).isActive = true
-//        self.bigPoker.heightAnchor.constraint(equalToConstant: newHeight).isActive = true
-       
-        print("xxxxxChangeFrame ", self.bigPoker.frame.origin.x , self.bigPoker.frame.origin.y)
-        print("xxxxxChangeFrameWidth ", self.bigPoker.frame.size.width, self.bigPoker.frame.size.height)
-        
-        
     }
 
     private func pageCurlWithShadowTransition(inputImage: UIImage, inputTargetImage: UIImage, inputBacksideImage: UIImage, inputTimeKey: NSNumber, slope: Float) -> (UIImage?, CGFloat, CGFloat, CGFloat, CGFloat) {

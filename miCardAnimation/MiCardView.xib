@@ -11,8 +11,8 @@
             <connections>
                 <outlet property="aConstraint" destination="O7h-oE-A7Y" id="cKZ-dm-Eph"/>
                 <outlet property="bigPoker" destination="vMx-oX-bWg" id="wfe-DH-uJD"/>
-                <outlet property="constraintX" destination="MHe-I6-v6q" id="iZP-ZL-VQ8"/>
-                <outlet property="constraintY" destination="PdL-op-dcv" id="Wmt-SY-Pce"/>
+                <outlet property="constraintX" destination="cJU-nu-LH6" id="skr-Uk-wPq"/>
+                <outlet property="constraintY" destination="sds-xd-wL2" id="Dh3-36-WSk"/>
                 <outlet property="finalPoker" destination="EvA-Tz-J6J" id="jUP-Xs-9hS"/>
                 <outlet property="poker" destination="nWZ-ge-vA0" id="NOV-8D-3gD"/>
             </connections>
