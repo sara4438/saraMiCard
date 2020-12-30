@@ -34,7 +34,7 @@ class MiCardView: UIView {
     private var quarterHeight: CGFloat = 0.0
     private var quarterWidth: CGFloat = 0.0
     private var slope : Float = 0.0
-    @IBOutlet weak var poker: PokerImageView!
+//    @IBOutlet weak var poker: PokerImageView!
     @IBOutlet weak var bigPoker: PokerImageView!
     @IBOutlet weak var finalPoker: PokerImageView!
     private let backImage = UIImage(named: "pic_poker_game_150x210")
@@ -96,10 +96,10 @@ class MiCardView: UIView {
         self.distanceX = 0
         self.distanceY = 0
         self.state = .vertical
+         updateCurlImageView()
         self.bigPoker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-//        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
-        updateCurlImageView()
+       
         updateFinalPokerXY()
     }
 
@@ -135,7 +135,6 @@ class MiCardView: UIView {
     }
     
     private func updateCurlImageView() {
-
         let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: self.backImage!, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         self.bigPoker.image = img3.0
         print("xxxxxX, ", img3.1, "Y ", img3.2)
@@ -174,9 +173,11 @@ class MiCardView: UIView {
                 break
             }
         }
+
         newWidth = self.bigPokerHeight * img3.4 / self.bigPokerHeight
         newHeight =  self.bigPokerWidth * img3.3 / self.bigPokerWidth
-
+   
+        
         if self.aConstraint != nil {
             self.aConstraint.isActive = false
         }

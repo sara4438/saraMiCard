@@ -7,36 +7,26 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var imgView: UIImageView!
-    
-    private var mirrorImg: UIImage = UIImage()
-    private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("ffffff")
-    }
-    
-    func convertUIImageToCGImage(uiImage:UIImage) -> CGImage {
-            var cgImage = uiImage.cgImage
-
-            if cgImage == nil {
-                let ciImage = uiImage.ciImage
-                cgImage = self.convertCIImageToCGImage(ciImage: ciImage!)
-            }
-            return cgImage!
+        
+        Auth.auth().createUser(withEmail: "sara54438@hotmail.com", password: "123456") { (result, error) in
+                    
+             guard let user = result?.user, error == nil else {
+                 print(error?.localizedDescription)
+                 return
+             }
+             print(user.email)
         }
         
-        func convertCIImageToCGImage(ciImage:CIImage) -> CGImage{
-            let ciContext = CIContext.init()
-            let cgImage:CGImage = ciContext.createCGImage(ciImage, from: ciImage.extent)!
-            return cgImage
-        }
-
+    }
+    
 
 }
 
