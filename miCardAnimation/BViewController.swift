@@ -7,7 +7,10 @@
 //
 
 import Foundation
-
-class BViewController{
-    
+import UIKit
+class BViewController : UIViewController{
+    override func viewDidLoad() {
+           super.viewDidLoad()
+        print("xxxxenter!")
+    }
 }

@@ -7,9 +7,10 @@ target 'miCardAnimation' do
 
   # Pods for miCardAnimation
     pod 'Firebase/Auth'
-    pod 'FBSDKLoginKit' 
-    pod 'FBSDKShareKit'
-    pod 'FBSDKCoreKit'
+    pod 'FacebookLogin'
+    pod 'FacebookCore'
+    pod 'FacebookShare'
+
   target 'miCardAnimationTests' do
     inherit! :search_paths
     # Pods for testing
