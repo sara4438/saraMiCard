@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FacebookCore
+import FBSDKLoginKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

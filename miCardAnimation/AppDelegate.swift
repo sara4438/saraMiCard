@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import FacebookCore
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,15 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    
     // MARK: UISceneSession Lifecycle
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-         ApplicationDelegate.shared.application(app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation:
-          options[UIApplication.OpenURLOptionsKey.annotation])
-      }
+        let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
+        
+        return handled
+    }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.

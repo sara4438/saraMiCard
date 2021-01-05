@@ -8,60 +8,119 @@
 
 import UIKit
 import FirebaseAuth
-import FacebookLogin
+import FBSDKLoginKit
 
 
 class ViewController: UIViewController {
-
-    // Swift override func viewDidLoad() { super.viewDidLoad()  }
-        
-
-    // Swift // // Extend the code sample from 6a.Add Facebook Login to Your Code // Add to your viewDidLoad method:
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //fb按鈕
-        let loginButton = FBLoginButton()
+//        let loginButton = FBLoginButton()
+//        loginButton.center = CGPoint(x: view.center.x, y: view.center.y + 3/4 * view.center.y)
+//        loginButton.permissions = ["public_profile", "email"]
+//        view.addSubview(loginButton)
+//        loginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        let fbLoginManager = LoginManager()
+//        fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+//            if let error = error {
+//                print("Failed to login: \(error.localizedDescription)")
+//                return
+//            }
+////
+//            guard let accessToken = AccessToken.current else {
+//                print("Failed to get access token")
+//                return
+//            }
+//
+//            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+//
+//            // Perform login by calling Firebase APIs
+//            Auth.auth().signIn(with: credential, completion: { (user, error) in
+//                if let error = error {
+//                    print("Login error: \(error.localizedDescription)")
+//                    let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
+//                    let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//                    alertController.addAction(okayAction)
+//                    self.present(alertController, animated: true, completion: nil)
+//
+//                    return
+//                }
+//
+//                // Present the main view
+//                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "secondPage") {
+//                    UIApplication.shared.keyWindow?.rootViewController = viewController
+//                    self.dismiss(animated: true, completion: nil)
+//
+//                }
+//            })
         
-        loginButton.center = view.center
-        loginButton.permissions = ["public_profile", "email"]
-        view.addSubview(loginButton)
-        if let token = AccessToken.current, !token.isExpired { // User is logged in, do work such as go to next view controller.
-             print("xxxx", token)
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            if let vc = mainStoryboard.instantiateViewController(withIdentifier: "secondPage") as? BViewController
-            {
-                print("xxxxx@@@@!!")
-                self.present(vc, animated: true, completion: nil)
-            }
-            
-        }
-       
         
-        //註冊帳號
-        Auth.auth().createUser(withEmail: "sara123@hotmail.com", password: "123456") { (result, error) in
-                    
-             guard let user = result?.user, error == nil else {
-                 print(error?.localizedDescription)
-                 return
-             }
-             print(user.email)
-        }
+//        }
+        
+//                if let token = AccessToken.current, !token.isExpired { // User is logged in, do work such as go to next view controller.
+//                     print("xxxx", token)
+//                    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                    if let vc = mainStoryboard.instantiateViewController(withIdentifier: "secondPage") as? BViewController
+//                    {
+//                        print("xxxxx@@@@!!")
+//                        self.present(vc, animated: true, completion: nil)
+//                    }
+//        
+//                }
         
     }
-    
-//    @IBAction func login(_ sender: Any) {
-//        let manager = LoginManager()
-//        manager.logIn { (result) in
-//           if case LoginResult.success(granted: _, declined: _, token: _) = result {
-//                  print("login ok")
-//              } else {
-//                  print("login fail")
-//              }
+        //註冊帳號
+//        Auth.auth().createUser(withEmail: "sara123@hotmail.com", password: "123456") { (result, error) in
+//
+//            guard let user = result?.user, error == nil else {
+//                print(error?.localizedDescription)
+//                return
+//            }
+//            print(user.email)
 //        }
+        
 //    }
     
+    @IBAction func facebookLogin(sender: UIButton) {
+        let fbLoginManager = LoginManager()
+        fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { (result, error) in
+            if let error = error {
+                print("Failed to login: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let accessToken = AccessToken.current else {
+                print("Failed to get access token")
+                return
+            }
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+            
+            // Perform login by calling Firebase APIs
+            Auth.auth().signIn(with: credential, completion: { (user, error) in
+                if let error = error {
+                    print("Login error: \(error.localizedDescription)")
+                    let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
+                    let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(okayAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    return
+                }
+                
+                // Present the main view
+                if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "secondPage") {
+                    UIApplication.shared.keyWindow?.rootViewController = viewController
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+            })
+            
+        }
+    }
     
     
-
+    
 }
 
