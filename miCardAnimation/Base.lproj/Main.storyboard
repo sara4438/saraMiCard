@@ -18,18 +18,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lz1-QI-nAj" userLabel="PleaseLogin">
-                                <rect key="frame" x="161" y="442.5" width="92" height="21"/>
+                                <rect key="frame" x="161" y="170.5" width="92" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuk-TT-oXV" userLabel="Login with Facebook">
-                                <rect key="frame" x="138" y="438" width="138" height="30"/>
-                                <color key="backgroundColor" red="0.69007593389999999" green="0.67842608689999995" blue="0.83375209569999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="132" y="438" width="150" height="30"/>
+                                <color key="backgroundColor" red="0.29065185789999998" green="0.4019801617" blue="0.67846012119999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="tVp-lV-4qV"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Login with facebook"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="facebookLoginWithSender:" destination="CF4-GQ-C9C" eventType="touchUpInside" id="cbm-gm-7Wt"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google.png" translatesAutoresizingMaskIntoConstraints="NO" id="b23-Wa-qsp">
+                                <rect key="frame" x="126" y="482.5" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="b23-Wa-qsp" secondAttribute="height" multiplier="1:1" id="QAd-Rm-i1D"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trZ-xB-lsp" userLabel="Login with Google">
+                                <rect key="frame" x="142" y="478" width="150" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="TFA-e4-3IR"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Login with google"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="facebookLoginWithSender:" destination="CF4-GQ-C9C" eventType="touchUpInside" id="OVc-hP-eRG"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipm-G0-SSB" userLabel="Google" customClass="GIDSignInButton">
+                                <rect key="frame" x="126" y="478" width="166" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UC5-sz-Tc6" userLabel="check">
+                                <rect key="frame" x="162.5" y="755" width="89" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Check login?"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="check:" destination="CF4-GQ-C9C" eventType="touchUpInside" id="TB6-8d-HtG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -37,12 +86,24 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xuk-TT-oXV" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="8kF-aA-Bjn"/>
+                            <constraint firstItem="b23-Wa-qsp" firstAttribute="trailing" secondItem="trZ-xB-lsp" secondAttribute="leading" constant="5" id="9Vx-Nu-B2L"/>
                             <constraint firstItem="xuk-TT-oXV" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" id="AO2-zB-PWc"/>
-                            <constraint firstItem="Lz1-QI-nAj" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" id="AQc-Ck-1ox"/>
+                            <constraint firstItem="Lz1-QI-nAj" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" multiplier="0.4" id="AQc-Ck-1ox"/>
+                            <constraint firstItem="ipm-G0-SSB" firstAttribute="leading" secondItem="b23-Wa-qsp" secondAttribute="leading" id="Jk5-XU-rUR"/>
+                            <constraint firstItem="UC5-sz-Tc6" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="Q7Q-ak-voz"/>
+                            <constraint firstItem="UC5-sz-Tc6" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" multiplier="1.7" id="WhI-vJ-wIU"/>
+                            <constraint firstItem="ipm-G0-SSB" firstAttribute="bottom" secondItem="trZ-xB-lsp" secondAttribute="bottom" id="boq-k1-oV2"/>
+                            <constraint firstItem="trZ-xB-lsp" firstAttribute="top" secondItem="xuk-TT-oXV" secondAttribute="bottom" constant="10" id="c9j-3o-paM"/>
+                            <constraint firstItem="ipm-G0-SSB" firstAttribute="trailing" secondItem="trZ-xB-lsp" secondAttribute="trailing" id="dGG-Zy-3NA"/>
                             <constraint firstItem="Lz1-QI-nAj" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="sv7-L8-YAI"/>
+                            <constraint firstItem="b23-Wa-qsp" firstAttribute="centerY" secondItem="trZ-xB-lsp" secondAttribute="centerY" id="tDm-RN-yuR"/>
+                            <constraint firstItem="b23-Wa-qsp" firstAttribute="height" secondItem="trZ-xB-lsp" secondAttribute="height" multiplier="0.7" id="vni-qI-KyG"/>
+                            <constraint firstItem="ipm-G0-SSB" firstAttribute="top" secondItem="trZ-xB-lsp" secondAttribute="top" id="y0k-ah-gMI"/>
+                            <constraint firstItem="trZ-xB-lsp" firstAttribute="centerX" secondItem="xuk-TT-oXV" secondAttribute="centerX" constant="10" id="yIa-hR-8WH"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="googleLogIn" destination="ipm-G0-SSB" id="guq-62-653"/>
                         <segue destination="BYZ-38-t0r" kind="show" id="hSP-sX-fgS"/>
                     </connections>
                 </viewController>
@@ -72,10 +133,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKY-NL-HW8">
-                                <rect key="frame" x="183" y="712" width="48" height="30"/>
+                                <rect key="frame" x="179.5" y="712" width="55" height="30"/>
                                 <color key="backgroundColor" red="0.69007593389999999" green="0.67842608689999995" blue="0.83375209569999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="55" id="7LN-G1-nO9"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Logout"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="logout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L4d-F1-8yd"/>
                                 </connections>
@@ -87,6 +156,12 @@
                                     <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" multiplier="25:35" id="Dkb-3K-ogI"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9h-zQ-D2E" userLabel="Email">
+                                <rect key="frame" x="186.5" y="96.5" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -94,6 +169,8 @@
                             <constraint firstItem="xy3-Rg-PN1" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="04f-w7-fWs"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1ia-n6-5Nf"/>
                             <constraint firstItem="xy3-Rg-PN1" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.2" id="BKJ-Yf-Vsx"/>
+                            <constraint firstItem="D9h-zQ-D2E" firstAttribute="top" secondItem="xy3-Rg-PN1" secondAttribute="bottom" constant="5" id="FzB-8b-hhE"/>
+                            <constraint firstItem="D9h-zQ-D2E" firstAttribute="centerX" secondItem="xy3-Rg-PN1" secondAttribute="centerX" id="KtZ-PH-8a5"/>
                             <constraint firstItem="03z-86-KXl" firstAttribute="top" secondItem="xy3-Rg-PN1" secondAttribute="top" id="Lv6-8v-Clz"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rBb-f0-gbv"/>
@@ -104,6 +181,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="BgE-R5-rtI"/>
                     <connections>
+                        <outlet property="emailLabel" destination="D9h-zQ-D2E" id="Jay-nH-qhW"/>
                         <outlet property="hiLabel" destination="03z-86-KXl" id="X11-mV-fGH"/>
                         <outlet property="nameLabel" destination="xy3-Rg-PN1" id="HCu-Ak-W7Z"/>
                     </connections>
@@ -114,6 +192,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="google.png" width="18" height="18"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

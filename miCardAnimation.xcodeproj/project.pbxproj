@@ -10,6 +10,7 @@
 		79D7C3A889EF24655133E83D /* Pods_miCardAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBB7E78C3E5ED7BC3C07D62 /* Pods_miCardAnimation.framework */; };
 		C0DAF540DA98BF619B2C669C /* Pods_miCardAnimationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163B0AACC622F209D5B24A75 /* Pods_miCardAnimationTests.framework */; };
 		E4B5541EB1680F9F759104E2 /* Pods_miCardAnimation_miCardAnimationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BB08F6FA1EC68B5F629510 /* Pods_miCardAnimation_miCardAnimationUITests.framework */; };
+		F92A944D25A559E300C1617A /* GIDSignInButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = F92A944C25A559E300C1617A /* GIDSignInButton.xib */; };
 		F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */; };
 		F92CEE96259C6EF500CDEF62 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92CEE95259C6EF500CDEF62 /* BViewController.swift */; };
 		F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B764256F598F00E42CE3 /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		81BA1B34DCDE04F1A6084A38 /* Pods-miCardAnimationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimationTests.debug.xcconfig"; path = "Target Support Files/Pods-miCardAnimationTests/Pods-miCardAnimationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		96BB08F6FA1EC68B5F629510 /* Pods_miCardAnimation_miCardAnimationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_miCardAnimation_miCardAnimationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36AA2521F2EE4B95CD18DA7 /* Pods-miCardAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimation.release.xcconfig"; path = "Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation.release.xcconfig"; sourceTree = "<group>"; };
+		F92A944C25A559E300C1617A /* GIDSignInButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GIDSignInButton.xib; sourceTree = "<group>"; };
 		F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F92CEE95259C6EF500CDEF62 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
 		F962B761256F598F00E42CE3 /* miCardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miCardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */,
 				F962B76F256F599000E42CE3 /* LaunchScreen.storyboard */,
 				F92CEE95259C6EF500CDEF62 /* BViewController.swift */,
+				F92A944C25A559E300C1617A /* GIDSignInButton.xib */,
 			);
 			path = miCardAnimation;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				F962B75E256F598F00E42CE3 /* Frameworks */,
 				F962B75F256F598F00E42CE3 /* Resources */,
 				530D320AC8C048A458581D1B /* [CP] Embed Pods Frameworks */,
+				98BE0D704E74DA0BF7B07A0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,6 +237,7 @@
 				F962B77F256F599100E42CE3 /* Frameworks */,
 				F962B780256F599100E42CE3 /* Resources */,
 				D82692CCB0531C152365D95B /* [CP] Embed Pods Frameworks */,
+				8FC51E55BA29C839D3ABC9C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F92A944D25A559E300C1617A /* GIDSignInButton.xib in Resources */,
 				F962B771256F599000E42CE3 /* LaunchScreen.storyboard in Resources */,
 				F962B76E256F599000E42CE3 /* Assets.xcassets in Resources */,
 				F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */,
@@ -354,6 +360,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FC51E55BA29C839D3ABC9C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98BE0D704E74DA0BF7B07A0F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D82692CCB0531C152365D95B /* [CP] Embed Pods Frameworks */ = {

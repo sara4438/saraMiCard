@@ -10,6 +10,7 @@ target 'miCardAnimation' do
     # pod 'Bolts'
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
+    pod 'GoogleSignIn'
 
   target 'miCardAnimationTests' do
     inherit! :search_paths

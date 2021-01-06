@@ -11,13 +11,13 @@ import FBSDKLoginKit
 
 class BViewController : UIViewController{
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var hiLabel: UILabel!
     override func viewDidLoad() {
-           super.viewDidLoad()
+       super.viewDidLoad()
         if let currentUser = Auth.auth().currentUser {
-            print("xxx", Auth.auth().currentUser)
             self.nameLabel.text = currentUser.displayName
-            
+            self.emailLabel.text = currentUser.email
         }
     }
     
@@ -29,9 +29,6 @@ class BViewController : UIViewController{
             try firebaseAuth.signOut()
             let alertController = UIAlertController(title: "Message", message: "Log out successfully" , preferredStyle: .alert)
             let okayAction = UIAlertAction(title: "好的", style: .cancel, handler: { _ in
-//                self.hiLabel.isHidden = true
-//                self.nameLabel.text = "Please login."
-                // Present the main view
                 if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "firstPage") {
                     UIApplication.shared.keyWindow?.rootViewController = viewController
                     self.dismiss(animated: true, completion: nil)
