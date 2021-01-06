@@ -11,6 +11,7 @@ target 'miCardAnimation' do
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     pod 'GoogleSignIn'
+    pod 'LineSDKSwift'
 
   target 'miCardAnimationTests' do
     inherit! :search_paths

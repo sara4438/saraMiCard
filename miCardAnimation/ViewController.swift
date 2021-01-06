@@ -59,12 +59,13 @@ class ViewController: UIViewController , GIDSignInDelegate {
         }catch let logOutError {
             print(logOutError)
         }
+        ///Google sign in
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
     
          //Automatically sign in the user.
         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        
+      
         //fb按鈕
 //        let loginButton = FBLoginButton()
 //        loginButton.center = CGPoint(x: view.center.x, y: view.center.y + 3/4 * view.center.y)

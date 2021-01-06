@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import GoogleSignIn
+import LineSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate , GIDSignInDelegate {
@@ -61,8 +62,10 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
     if (url.absoluteString.range(of: "facebook") != nil){
         result = ApplicationDelegate.shared.application(app, open: url, options: options)
 
-    }else if (url.absoluteString.range(of: "google") != nil){
+    } else if (url.absoluteString.range(of: "google") != nil){
         result = GIDSignIn.sharedInstance().handle(url)
+    } else if (url.absoluteString.range(of: "line") != nil) {
+        result = LineSDK. ().handle(url)
     }
     
     return result

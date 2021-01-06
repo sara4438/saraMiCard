@@ -2,6 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>LineSDKConfig</key>
+    <dict>
+        <key>ChannelID</key>
+        <string>1655549103</string>
+    </dict>
+    
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!-- Specify URL scheme to use when returning from LINE to your app. -->
+                <string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            </array>
+        </dict>
+    </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <!-- Specify URL scheme to use when launching LINE from your app. -->
+        <string>lineauth2</string>
+    </array>
+    
 	<key>CLIENT_ID</key>
 	<string>412741437040-i4n6n6qqhl7gvbdq16fg6un2anifvu7h.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
