@@ -110,8 +110,8 @@
             filePath = "miCardAnimation/MiCardView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
             landmarkName = "touchesMoved(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "miCardAnimation/MiCardView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "setPokerImageView(poker:fileName:option:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,13 +142,13 @@
             filePath = "miCardAnimation/MiCardView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "pageCurlWithShadowTransition(inputImage:inputTargetImage:inputBacksideImage:inputTimeKey:slope:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "3B246C98-A46E-40E2-8FA8-D1A6B8D6E0EF - 4e3c8fd7a704f859"
+                  uuid = "3B246C98-A46E-40E2-8FA8-D1A6B8D6E0EF - 1f39c5e88b7f95bb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -163,7 +163,7 @@
                   offsetFromSymbolStart = "732">
                </Location>
                <Location
-                  uuid = "3B246C98-A46E-40E2-8FA8-D1A6B8D6E0EF - 7334b292df407c4d"
+                  uuid = "3B246C98-A46E-40E2-8FA8-D1A6B8D6E0EF - 2231f8adf33b11c8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -190,8 +190,8 @@
             filePath = "miCardAnimation/MiCardView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "pageCurlWithShadowTransition(inputImage:inputTargetImage:inputBacksideImage:inputTimeKey:slope:)"
             landmarkType = "7">
          </BreakpointContent>

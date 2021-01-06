@@ -119,19 +119,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-pz-1FE" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="158" width="414" height="580"/>
+                                <rect key="frame" x="62" y="79" width="290" height="290"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" multiplier="25:35" id="Dkb-3K-ogI"/>
+                                    <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" id="Dkb-3K-ogI"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yg5-Be-EK4" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
+                                <rect key="frame" x="62" y="512" width="290" height="290"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGC-2n-SZM">
+                                <rect key="frame" x="187.5" y="438" width="39" height="30"/>
+                                <color key="backgroundColor" red="0.99810987709999999" green="0.20541957020000001" blue="0.074735693630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.99810987709999999" green="0.20541957020000001" blue="0.074735693630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K85-Yv-DJk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olc-6m-Jfu" userLabel="Horizontal">
+                                <rect key="frame" x="68" y="438" width="71" height="30"/>
+                                <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Horizontal"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="toHorizontal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="45d-1V-8lp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4h-gW-Ivj" userLabel="Vertical">
+                                <rect key="frame" x="284.5" y="438" width="52" height="30"/>
+                                <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Vertical"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="toVertical:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wms-pZ-xpY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1ia-n6-5Nf"/>
+                            <constraint firstItem="RGC-2n-SZM" firstAttribute="top" secondItem="olc-6m-Jfu" secondAttribute="top" id="1cP-yJ-Fwg"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="1ia-n6-5Nf"/>
+                            <constraint firstItem="yg5-Be-EK4" firstAttribute="leading" secondItem="QnH-pz-1FE" secondAttribute="leading" id="6Ta-7k-nsG"/>
+                            <constraint firstItem="olc-6m-Jfu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Eti-8F-Ff1"/>
+                            <constraint firstItem="RGC-2n-SZM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Jnd-g6-lfp"/>
+                            <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="yg5-Be-EK4" secondAttribute="height" multiplier="25:25" id="MGH-En-uXS"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rBb-f0-gbv"/>
+                            <constraint firstItem="yg5-Be-EK4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.45" id="Q3g-xj-ALc"/>
+                            <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="width" id="Z5l-j1-7hV"/>
+                            <constraint firstItem="olc-6m-Jfu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.5" id="Zke-3l-qeA"/>
+                            <constraint firstItem="v4h-gW-Ivj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="i4O-CW-kac"/>
+                            <constraint firstItem="v4h-gW-Ivj" firstAttribute="top" secondItem="olc-6m-Jfu" secondAttribute="top" id="kHO-sa-HBy"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="rBb-f0-gbv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BgE-R5-rtI"/>

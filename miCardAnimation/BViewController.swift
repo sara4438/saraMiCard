@@ -8,10 +8,20 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import RxSwift
 
 class BViewController : UIViewController{
     override func viewDidLoad() {
        super.viewDidLoad()
     }
     
+    @IBAction func toHorizontal(_ sender: Any) {
+        UIState.instance.isVertical.onNext(false)
+    }
+    @IBAction func toVertical(_ sender: Any) {
+        UIState.instance.isVertical.onNext(true)
+    }
+    @IBAction func reset(_ sender: Any) {
+        UIState.instance.reset.onNext(true)
+    }
 }

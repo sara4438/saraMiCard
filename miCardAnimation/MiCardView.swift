@@ -8,6 +8,7 @@
 
 
 import UIKit
+import RxSwift
 //import RxCocoa
 
 class MiCardView: UIView {
@@ -41,16 +42,55 @@ class MiCardView: UIView {
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
     private let testImg = UIImage(named: "pic_pokerDiamond_10_game_150x210")
     private var isAnimating: Bool = false
-    private var cornerArr: [Corner] = [.closeCorner, .closeCorner, .closeCorner, .right, .rightBottom, .bottom, .leftBottom, .left]
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        loadXib()
-    }
-    
-    
+    private var cornerArr: [Corner] = [.closeCorner, .closeCorner, .closeCorner, .closeCorner, .rightBottom, .bottom, .leftBottom, .closeCorner]
+    var disposeBag: DisposeBag = DisposeBag()
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        loadXib()
+//    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+        UIState.instance.isVertical.subscribe(onNext:{[weak self] vertical in
+            guard let self = self else { return }
+            if vertical {
+                self.changeToVertical()
+            } else {
+                self.changeToHorizontal()
+            }
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.reset.skip(1).subscribe(onNext:{[weak self] reset in
+            guard let self = self else { return }
+            if reset {
+                self.reset()
+            }
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.release.subscribe(onNext:{[weak self] release in
+            guard let self = self else { return }
+            if release {
+                self.flipBackAnimation()
+            }
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.enterDragingCorner.subscribe(onNext:{[weak self] corner in
+            guard let self = self else { return }
+            self.enterDragingCorner = corner
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.touchPoint.skip(1).subscribe(onNext:{[weak self] point in
+            guard let self = self else { return }
+            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.flipCard.skip(1).subscribe(onNext:{[weak self] flip in
+            guard let self = self else { return }
+            if flip {
+                self.flipCard()
+            }
+            
+        }).disposed(by: disposeBag)
     }
     
     func loadXib(){
@@ -87,10 +127,9 @@ class MiCardView: UIView {
         self.maxY = self.finalPoker.frame.maxY
         self.quarterHeight = 1/4 * self.finalPoker.frame.height
         self.quarterWidth = 1/4 * self.finalPoker.frame.width
-       
     }
     
-    @IBAction func reset(_ sender: Any) {
+    func reset() {
         self.bigPoker.isHidden = false
         self.finalPoker.isHidden = true
         self.distanceX = 0
@@ -137,53 +176,22 @@ class MiCardView: UIView {
     private func updateCurlImageView() {
         let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: self.backImage!, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         self.bigPoker.image = img3.0
-        print("xxxxxX, ", img3.1, "Y ", img3.2)
+//        print("xxxxxX, ", img3.1, "Y ", img3.2)
         var xFactor : CGFloat = 0.5
         var yFactor : CGFloat = 0.5
         var newWidth: CGFloat = self.bigPokerWidth
         var newHeight: CGFloat = self.bigPokerHeight
-        var n : CGFloat = 0
-        var m : CGFloat = 0
         var widthC: CGFloat = 0
-        if state == .horizontal {
-            switch self.enterDragingCorner {
-            case .rightBottom:
-                xFactor = -0.8
-                yFactor = 0.8
-            case .leftBottom:
-                xFactor = 0.1
-                yFactor = 0.1
-                n = -10
-                m = 10
-//            case .bottom:
-//                xFactor = 0
-//                yFactor = 0.5
-//                m = -10
-            case .right:
-                xFactor = 0.9
-            case .left:
-                xFactor = 0.5
-                yFactor = 0.5
-            case .none:
-                xFactor = 0
-                yFactor = 0
-                n = -40
-                m = 40
-            default:
-                break
-            }
-        }
-
+        
         newWidth = self.bigPokerHeight * img3.4 / self.bigPokerHeight
         newHeight =  self.bigPokerWidth * img3.3 / self.bigPokerWidth
-   
         
         if self.aConstraint != nil {
             self.aConstraint.isActive = false
         }
         
-        self.bigPoker.frame.origin.x = self.bigPokerX + img3.1 * xFactor + n
-        self.bigPoker.frame.origin.y = self.bigPokerY - img3.2 * yFactor + m
+        self.bigPoker.frame.origin.x = self.bigPokerX + img3.1 * xFactor
+        self.bigPoker.frame.origin.y = self.bigPokerY - img3.2 * yFactor
         
         self.bigPoker.frame.size.width = newWidth
         self.bigPoker.frame.size.height = newHeight
@@ -249,10 +257,9 @@ class MiCardView: UIView {
 
 //        extent.origin.y = -4
 //        extent.origin.x = -4
-
 //        extent.size.height = 218 * 1.2
 //        extent.size.width = 158 * 1.3
-        print(extent)
+//        print(extent)
         let cgimg = self.context.createCGImage(output!,from: extent)
     
         let processedImage = UIImage(cgImage: cgimg!)
@@ -264,26 +271,27 @@ class MiCardView: UIView {
            if self.enterDragingCorner == .none {
                return
            }
-           self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //創建timer
-           timer?.schedule(deadline: .now(), repeating: 0.01)
-           timer?.setEventHandler(handler: {
-               if self.distanceX <= 0 && self.distanceY <= 0  {
-                   self.timer!.cancel()
-                   self.distanceX = 0
-                   self.distanceY = 0
-                   self.enterDragingCorner = .none
-                   self.isAnimating = false
-                   return
-               }
-               self.isAnimating = true
-               self.distanceX -= 12
-               self.distanceY -= 12
-               DispatchQueue.main.async {
-                   self.updateCurlImageView()
-               }
-           })
-           self.timer?.resume()
-           
+        self.timer =  DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main) as! DispatchSource //創建timer
+        timer?.schedule(deadline: .now(), repeating: 0.01)
+        timer?.setEventHandler(handler: { [self] in
+            if self.distanceX <= 0 && self.distanceY <= 0 {
+                self.timer!.cancel()
+                self.distanceX = 0
+                self.distanceY = 0
+                UIState.instance.enterDragingCorner.onNext(.none)
+                UIState.instance.touchPoint.onNext(CGPoint(x:0, y:0))
+                self.isAnimating = false
+                return
+            }
+            self.isAnimating = true
+            self.distanceX -= 12
+            self.distanceY -= 12
+            DispatchQueue.main.async {
+                self.updateCurlImageView()
+            }
+        })
+        self.timer?.resume()
+        
        }
     
     private func setCurlImageView(inputTimeKeyX: CGFloat, inputTimeKeyY: CGFloat ) {
@@ -332,11 +340,9 @@ class MiCardView: UIView {
                 touchPointY = inputTimeKeyY < midY - stopCurlingHeight ?  Float(midY - stopCurlingHeight) : inputTimeKeyY > maxY ? Float(maxY) : Float(inputTimeKeyY)
                 distanceY = abs(touchPointY - Float(maxY))
                 distanceX = abs(touchPointX - Float(maxX))
-                
                 let y =  touchPointY - Float(minY)
                 let x =  touchPointX - Float(minX)
                 slope =  y / x
-
             case self.cornerArr[5] :
                 touchPointY = inputTimeKeyY < midY - stopCurlingHeight ?  Float(midY - stopCurlingHeight) : inputTimeKeyY > maxY ? Float(maxY) : Float(inputTimeKeyY)
                distanceY = abs(Float(maxY) - touchPointY)
@@ -394,29 +400,6 @@ class MiCardView: UIView {
         })
     }
     
-//    private func miPokerAnimation() { //trigger
-//        self.poker.image = UIImage(named: "pic_poker_game_150x210")
-//        self.constraintX.constant = 0
-//        self.constraintY.constant = 0
-//        self.layoutIfNeeded()
-////        self.b3.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 360).concatenating(CGAffineTransform(scaleX: 1, y: -1))
-//        UIView.animate(withDuration: 0.6, animations: {
-//            let offsetX = self.poker.center.x - self.frame.width / 2
-//            //            let width = self.bankerWin.frame.width
-//            //            print(self.b3.frame.origin.x)
-//            self.poker.transform = CGAffineTransform(scaleX: 2, y: -2)
-//            self.constraintX.constant -= offsetX
-////            self.constraintY.constant -= self.frame.height * 2
-//
-//            self.layoutIfNeeded()
-//        }, completion: { [weak self] finished in
-//            if (!finished) {
-//                return
-//            }
-//        })
-//    }
-
-    
     private func flipCard() {
         var verticalAnimate : UIView.AnimationOptions?
         var horizontalAnimate: UIView.AnimationOptions?
@@ -442,10 +425,10 @@ class MiCardView: UIView {
                 break
         }
         self.playPokerAnimation(poker: self.bigPoker!, option: verticalAnimate!)
-        self.enterDragingCorner = .none
+        UIState.instance.enterDragingCorner.onNext(.none)
     }
     
-    @IBAction func changeToHorizontal(_ sender: Any) {
+    func changeToHorizontal() {
         if self.state == .vertical {
             self.state = .horizontal
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
@@ -461,7 +444,7 @@ class MiCardView: UIView {
         }
     }
     
-    @IBAction func changeToVertical(_ sender: Any) {
+    func changeToVertical() {
         if self.state == .horizontal {
             self.state = .vertical
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
@@ -473,7 +456,6 @@ class MiCardView: UIView {
         }
     }
     
-
     deinit {
         self.timer?.cancel()
     }
@@ -488,35 +470,36 @@ extension MiCardView {
         if (self.point(inside: point, with: nil)) {
             if (self.point(inside: point, with: nil)) {
                 if point.y < midY - quarterHeight && point.y > minY && point.x < midX - quarterWidth && point.x > minX {
-                    self.enterDragingCorner = self.cornerArr[0]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[0])
+//                    self.enterDragingCorner = self.cornerArr[0]
                 } else if point.y < midY - quarterHeight && point.y > minY && abs(point.x - midX) < quarterWidth {
-                    self.enterDragingCorner = self.cornerArr[1]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[1])
+//                    self.enterDragingCorner = self.cornerArr[1]
                 }else if point.y < midY - quarterHeight && point.y > minY && point.x > midX + quarterWidth && point.x < maxX {
-                    self.enterDragingCorner = self.cornerArr[2]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[2])
+//                    self.enterDragingCorner = self.cornerArr[2]
                     
                 }else if point.x > midX + quarterWidth && point.x < maxX && abs(point.y - midY) < quarterHeight {
-                    self.enterDragingCorner = self.cornerArr[3]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[3])
+//                    self.enterDragingCorner = self.cornerArr[3]
                     
                 } else if point.y > midY + quarterHeight && point.y < maxY && point.x > midX + quarterWidth && point.x < maxX {
-                    self.enterDragingCorner = self.cornerArr[4]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[4])
+//                    self.enterDragingCorner = self.cornerArr[4]
                     
                 } else if point.y > midY + quarterHeight && point.y < maxY && abs(point.x - midX) < quarterWidth {
-                    self.enterDragingCorner = self.cornerArr[5]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[5])
+//                    self.enterDragingCorner = self.cornerArr[5]
                     
                 }else if point.y > midY + quarterHeight && point.y < maxY && point.x <= midX - quarterWidth && point.x >= minX {
-                    self.enterDragingCorner = self.cornerArr[6]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[6])
+//                    self.enterDragingCorner = self.cornerArr[6]
               
                 }else if point.x < midX - quarterWidth && point.x > minX && abs(point.y - midY) < quarterHeight {
-                    self.enterDragingCorner = self.cornerArr[7]
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[7])
+//                    self.enterDragingCorner = self.cornerArr[7]
                 }
+                UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y ))
             }
         }
     }
@@ -534,42 +517,50 @@ extension MiCardView {
         switch self.enterDragingCorner {
             case self.cornerArr[0]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
-                    flipCard()
+                    UIState.instance.setFlipCard()
+//                    flipCard()
                     return
                 }
             case self.cornerArr[1]:
                 if  point.y > self.bounds.midY + flipHeightControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[2]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[3]:
                 if  point.x < self.bounds.midX - flipWidthControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[4]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[5]:
                 if  point.y < self.bounds.midY - flipHeightControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[6]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[7]:
                 if  point.x > self.bounds.midX + flipWidthControl {
-                    flipCard()
+//                    flipCard()
+                    UIState.instance.setFlipCard()
                     return
                 }
             default:
@@ -578,7 +569,9 @@ extension MiCardView {
         
         if (self.point(inside: point, with: nil)) {
             if self.enterDragingCorner != .none {
-                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+//                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+                UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y))
+                
             }
         }
     }
@@ -591,15 +584,16 @@ extension MiCardView {
         if self.enterDragingCorner == .none || self.enterDragingCorner == .closeCorner {
             return
         }
-        self.flipBackAnimation()
+        UIState.instance.releaseTouch()
+//        self.flipBackAnimation()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isAnimating {
             return
         }
-        self.flipBackAnimation()
-        self.enterDragingCorner = .none
+//        self.flipBackAnimation()
+        UIState.instance.releaseTouch()
     }
 }
 
