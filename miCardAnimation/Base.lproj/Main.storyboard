@@ -125,7 +125,7 @@
                                     <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" id="Dkb-3K-ogI"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yg5-Be-EK4" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yg5-Be-EK4" customClass="ReflectMiCardView" customModule="miCardAnimation" customModuleProvider="target">
                                 <rect key="frame" x="62" y="512" width="290" height="290"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
