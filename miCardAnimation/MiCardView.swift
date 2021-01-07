@@ -42,6 +42,7 @@ class MiCardView: UIView {
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
     private let testImg = UIImage(named: "pic_pokerDiamond_10_game_150x210")
     private var isAnimating: Bool = false
+    private var queue = QueueArray<CGPoint>()
     private var cornerArr: [Corner] = [.closeCorner, .closeCorner, .closeCorner, .closeCorner, .rightBottom, .bottom, .leftBottom, .closeCorner]
     var disposeBag: DisposeBag = DisposeBag()
 //    override init(frame: CGRect) {
@@ -51,6 +52,7 @@ class MiCardView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+        
         UIState.instance.isVertical.subscribe(onNext:{[weak self] vertical in
             guard let self = self else { return }
             if vertical {
@@ -64,6 +66,7 @@ class MiCardView: UIView {
             guard let self = self else { return }
             if reset {
                 self.reset()
+                self.queue.clear()
             }
         }).disposed(by: disposeBag)
         
@@ -71,6 +74,7 @@ class MiCardView: UIView {
             guard let self = self else { return }
             if release {
                 self.flipBackAnimation()
+                self.queue.clear()
             }
         }).disposed(by: disposeBag)
         
@@ -79,18 +83,48 @@ class MiCardView: UIView {
             self.enterDragingCorner = corner
         }).disposed(by: disposeBag)
         
+//        UIState.instance.touchPoint.skip(1).throttle(0.5, scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
+//            guard let self = self else { return }
+//            print("xxxx" , point.x, point.y)
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+//        }).disposed(by: disposeBag)
+        
         UIState.instance.touchPoint.skip(1).subscribe(onNext:{[weak self] point in
             guard let self = self else { return }
-            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+            print("xxxx" , point.x, point.y)
+            let _ = self.queue.enqueue(point)
+            print("xxxxQ :", self.queue)
+            if self.queue.size() >= 10 {
+                self.startTakeQueue(secondInterval: 0.5)
+            }
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
         }).disposed(by: disposeBag)
         
         UIState.instance.flipCard.skip(1).subscribe(onNext:{[weak self] flip in
             guard let self = self else { return }
             if flip {
                 self.flipCard()
+                self.queue.clear()
             }
             
         }).disposed(by: disposeBag)
+    }
+    func startTakeQueue(secondInterval: Double) {
+        var timer = Timer()
+        timer = Timer.scheduledTimer(timeInterval: secondInterval, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timerAction() {
+        var point : CGPoint?
+        if !self.queue.isEmpty {
+            print("aaaaa!")
+            point = self.queue.dequeue()
+            if let point = point {
+                self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+            }
+           
+        }
+        
     }
     
     func loadXib(){
@@ -176,7 +210,6 @@ class MiCardView: UIView {
     private func updateCurlImageView() {
         let img3 = pageCurlWithShadowTransition(inputImage: self.backImage!, inputTargetImage: self.backImage!, inputBacksideImage: self.frontImage!, inputTimeKey: NSNumber(value: max(distanceX, distanceY) / 250), slope: slope)
         self.bigPoker.image = img3.0
-//        print("xxxxxX, ", img3.1, "Y ", img3.2)
         var xFactor : CGFloat = 0.5
         var yFactor : CGFloat = 0.5
         var newWidth: CGFloat = self.bigPokerWidth
@@ -456,6 +489,33 @@ class MiCardView: UIView {
         }
     }
     
+    func checkEnterCorner(point : CGPoint) -> Corner {
+        var enterCorner : Corner = .none
+        if (self.point(inside: point, with: nil)) {
+            if (self.point(inside: point, with: nil)) {
+                if point.y < midY - quarterHeight && point.y > minY && point.x < midX - quarterWidth && point.x > minX {
+                    enterCorner = self.cornerArr[0]
+                } else if point.y < midY - quarterHeight && point.y > minY && abs(point.x - midX) < quarterWidth {
+                    enterCorner = self.cornerArr[1]
+                }else if point.y < midY - quarterHeight && point.y > minY && point.x > midX + quarterWidth && point.x < maxX {
+                    enterCorner = self.cornerArr[2]
+                }else if point.x > midX + quarterWidth && point.x < maxX && abs(point.y - midY) < quarterHeight {
+                    enterCorner = self.cornerArr[3]
+                } else if point.y > midY + quarterHeight && point.y < maxY && point.x > midX + quarterWidth && point.x < maxX {
+                    enterCorner = self.cornerArr[4]
+                } else if point.y > midY + quarterHeight && point.y < maxY && abs(point.x - midX) < quarterWidth {
+                    enterCorner = self.cornerArr[5]
+                }else if point.y > midY + quarterHeight && point.y < maxY && point.x <= midX - quarterWidth && point.x >= minX {
+                    enterCorner = self.cornerArr[6]
+                }else if point.x < midX - quarterWidth && point.x > minX && abs(point.y - midY) < quarterHeight {
+                    enterCorner = self.cornerArr[7]
+                }
+               return enterCorner
+            }
+        }
+        return enterCorner
+    }
+    
     deinit {
         self.timer?.cancel()
     }
@@ -467,41 +527,9 @@ extension MiCardView {
         if isAnimating {
             return
         }
-        if (self.point(inside: point, with: nil)) {
-            if (self.point(inside: point, with: nil)) {
-                if point.y < midY - quarterHeight && point.y > minY && point.x < midX - quarterWidth && point.x > minX {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[0])
-//                    self.enterDragingCorner = self.cornerArr[0]
-                } else if point.y < midY - quarterHeight && point.y > minY && abs(point.x - midX) < quarterWidth {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[1])
-//                    self.enterDragingCorner = self.cornerArr[1]
-                }else if point.y < midY - quarterHeight && point.y > minY && point.x > midX + quarterWidth && point.x < maxX {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[2])
-//                    self.enterDragingCorner = self.cornerArr[2]
-                    
-                }else if point.x > midX + quarterWidth && point.x < maxX && abs(point.y - midY) < quarterHeight {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[3])
-//                    self.enterDragingCorner = self.cornerArr[3]
-                    
-                } else if point.y > midY + quarterHeight && point.y < maxY && point.x > midX + quarterWidth && point.x < maxX {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[4])
-//                    self.enterDragingCorner = self.cornerArr[4]
-                    
-                } else if point.y > midY + quarterHeight && point.y < maxY && abs(point.x - midX) < quarterWidth {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[5])
-//                    self.enterDragingCorner = self.cornerArr[5]
-                    
-                }else if point.y > midY + quarterHeight && point.y < maxY && point.x <= midX - quarterWidth && point.x >= minX {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[6])
-//                    self.enterDragingCorner = self.cornerArr[6]
-              
-                }else if point.x < midX - quarterWidth && point.x > minX && abs(point.y - midY) < quarterHeight {
-                    UIState.instance.enterDragingCorner.onNext( self.cornerArr[7])
-//                    self.enterDragingCorner = self.cornerArr[7]
-                }
-                UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y ))
-            }
-        }
+        let enterCorner = self.checkEnterCorner(point: point)
+        UIState.instance.enterDragingCorner.onNext(enterCorner)
+        UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y ))
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -518,48 +546,40 @@ extension MiCardView {
             case self.cornerArr[0]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
                     UIState.instance.setFlipCard()
-//                    flipCard()
                     return
                 }
             case self.cornerArr[1]:
                 if  point.y > self.bounds.midY + flipHeightControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[2]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[3]:
                 if  point.x < self.bounds.midX - flipWidthControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[4]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[5]:
                 if  point.y < self.bounds.midY - flipHeightControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[6]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
             case self.cornerArr[7]:
                 if  point.x > self.bounds.midX + flipWidthControl {
-//                    flipCard()
                     UIState.instance.setFlipCard()
                     return
                 }
@@ -569,7 +589,6 @@ extension MiCardView {
         
         if (self.point(inside: point, with: nil)) {
             if self.enterDragingCorner != .none {
-//                    self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
                 UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y))
                 
             }
@@ -585,14 +604,12 @@ extension MiCardView {
             return
         }
         UIState.instance.releaseTouch()
-//        self.flipBackAnimation()
     }
     
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isAnimating {
             return
         }
-//        self.flipBackAnimation()
         UIState.instance.releaseTouch()
     }
 }
@@ -620,4 +637,51 @@ public enum Corner {
 public enum  State {
     case horizontal
     case vertical
+}
+
+public struct QueueArray<T>: Queue {
+    public typealias Element = CGPoint
+    
+    
+    private var array:[Element] = []
+    
+    public init(){}
+    
+    public var isEmpty: Bool {
+        return array.isEmpty
+    }
+    //bigO(1)
+    
+    public var peek: Element? {
+        print(array.first)
+        return array.first
+    }
+    //bigO(1)
+    
+    public mutating func enqueue(_ element: Element) -> Bool {
+        array.append(element)
+        return true
+        //bigO(1)
+    }
+    
+    public func size() -> Int {
+        return array.count
+    }
+    
+    public mutating func clear() {
+        array.removeAll()
+    }
+    
+    public mutating func dequeue() -> Element? {
+        return isEmpty ? nil : array.removeFirst()
+        //isEmpty = true 回傳nil false就removeFirst()
+    }
+}
+
+public protocol Queue {
+    associatedtype Element
+    mutating func enqueue(_ element: Element) ->Bool
+    mutating func dequeue() -> Element?
+    var isEmpty: Bool { get }
+    var peek: Element? { get }
 }
