@@ -3,10 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79D7C3A889EF24655133E83D /* Pods_miCardAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBB7E78C3E5ED7BC3C07D62 /* Pods_miCardAnimation.framework */; };
+		C0DAF540DA98BF619B2C669C /* Pods_miCardAnimationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163B0AACC622F209D5B24A75 /* Pods_miCardAnimationTests.framework */; };
+		E4B5541EB1680F9F759104E2 /* Pods_miCardAnimation_miCardAnimationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BB08F6FA1EC68B5F629510 /* Pods_miCardAnimation_miCardAnimationUITests.framework */; };
+		F92A948825A591AF00C1617A /* UISate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A948725A591AF00C1617A /* UISate.swift */; };
+		F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */; };
+		F92CEE96259C6EF500CDEF62 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92CEE95259C6EF500CDEF62 /* BViewController.swift */; };
 		F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B764256F598F00E42CE3 /* AppDelegate.swift */; };
 		F962B767256F598F00E42CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B766256F598F00E42CE3 /* SceneDelegate.swift */; };
 		F962B769256F598F00E42CE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B768256F598F00E42CE3 /* ViewController.swift */; };
@@ -17,8 +23,6 @@
 		F962B787256F599100E42CE3 /* miCardAnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B786256F599100E42CE3 /* miCardAnimationUITests.swift */; };
 		F962B795256F5AAE00E42CE3 /* MiCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B794256F5AAE00E42CE3 /* MiCardView.swift */; };
 		F962B797256F5ABA00E42CE3 /* MiCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F962B796256F5ABA00E42CE3 /* MiCardView.xib */; };
-		F962B799256F5C4600E42CE3 /* XibInstantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B798256F5C4600E42CE3 /* XibInstantiate.swift */; };
-		F962B79B256F5CF700E42CE3 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */; };
 		F962B79D256F5D7800E42CE3 /* BundleUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B79C256F5D7800E42CE3 /* BundleUtility.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +44,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		163B0AACC622F209D5B24A75 /* Pods_miCardAnimationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_miCardAnimationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30FD753C69AD98CFDF85F9A6 /* Pods-miCardAnimationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimationTests.release.xcconfig"; path = "Target Support Files/Pods-miCardAnimationTests/Pods-miCardAnimationTests.release.xcconfig"; sourceTree = "<group>"; };
+		32F227AF962417072392A493 /* Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig"; path = "Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5CA8ED7A7D918F671A25B137 /* Pods-miCardAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimation.debug.xcconfig"; path = "Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation.debug.xcconfig"; sourceTree = "<group>"; };
+		81BA1B34DCDE04F1A6084A38 /* Pods-miCardAnimationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimationTests.debug.xcconfig"; path = "Target Support Files/Pods-miCardAnimationTests/Pods-miCardAnimationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		96BB08F6FA1EC68B5F629510 /* Pods_miCardAnimation_miCardAnimationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_miCardAnimation_miCardAnimationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A36AA2521F2EE4B95CD18DA7 /* Pods-miCardAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimation.release.xcconfig"; path = "Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation.release.xcconfig"; sourceTree = "<group>"; };
+		F92A948725A591AF00C1617A /* UISate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISate.swift; sourceTree = "<group>"; };
+		F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F92CEE95259C6EF500CDEF62 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
 		F962B761256F598F00E42CE3 /* miCardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miCardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962B764256F598F00E42CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F962B766256F598F00E42CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,9 +70,9 @@
 		F962B788256F599100E42CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F962B794256F5AAE00E42CE3 /* MiCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiCardView.swift; sourceTree = "<group>"; };
 		F962B796256F5ABA00E42CE3 /* MiCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiCardView.xib; sourceTree = "<group>"; };
-		F962B798256F5C4600E42CE3 /* XibInstantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibInstantiate.swift; sourceTree = "<group>"; };
-		F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		F962B79C256F5D7800E42CE3 /* BundleUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtility.swift; sourceTree = "<group>"; };
+		FCD86C159A74F0176B95EB22 /* Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig"; path = "Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FDBB7E78C3E5ED7BC3C07D62 /* Pods_miCardAnimation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_miCardAnimation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D7C3A889EF24655133E83D /* Pods_miCardAnimation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DAF540DA98BF619B2C669C /* Pods_miCardAnimationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,12 +96,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4B5541EB1680F9F759104E2 /* Pods_miCardAnimation_miCardAnimationUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4EE3FF256BE22CC9FF114320 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5CA8ED7A7D918F671A25B137 /* Pods-miCardAnimation.debug.xcconfig */,
+				A36AA2521F2EE4B95CD18DA7 /* Pods-miCardAnimation.release.xcconfig */,
+				FCD86C159A74F0176B95EB22 /* Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig */,
+				32F227AF962417072392A493 /* Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig */,
+				81BA1B34DCDE04F1A6084A38 /* Pods-miCardAnimationTests.debug.xcconfig */,
+				30FD753C69AD98CFDF85F9A6 /* Pods-miCardAnimationTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F962B758256F598F00E42CE3 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +123,8 @@
 				F962B77A256F599100E42CE3 /* miCardAnimationTests */,
 				F962B785256F599100E42CE3 /* miCardAnimationUITests */,
 				F962B762256F598F00E42CE3 /* Products */,
+				4EE3FF256BE22CC9FF114320 /* Pods */,
+				FEC87172477CB77E1E0BF8CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,10 +149,11 @@
 				F962B772256F599000E42CE3 /* Info.plist */,
 				F962B794256F5AAE00E42CE3 /* MiCardView.swift */,
 				F962B796256F5ABA00E42CE3 /* MiCardView.xib */,
-				F962B798256F5C4600E42CE3 /* XibInstantiate.swift */,
-				F962B79A256F5CF700E42CE3 /* UIImageExtention.swift */,
 				F962B79C256F5D7800E42CE3 /* BundleUtility.swift */,
+				F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */,
 				F962B76F256F599000E42CE3 /* LaunchScreen.storyboard */,
+				F92CEE95259C6EF500CDEF62 /* BViewController.swift */,
+				F92A948725A591AF00C1617A /* UISate.swift */,
 			);
 			path = miCardAnimation;
 			sourceTree = "<group>";
@@ -143,6 +176,16 @@
 			path = miCardAnimationUITests;
 			sourceTree = "<group>";
 		};
+		FEC87172477CB77E1E0BF8CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FDBB7E78C3E5ED7BC3C07D62 /* Pods_miCardAnimation.framework */,
+				96BB08F6FA1EC68B5F629510 /* Pods_miCardAnimation_miCardAnimationUITests.framework */,
+				163B0AACC622F209D5B24A75 /* Pods_miCardAnimationTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +193,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F962B78B256F599100E42CE3 /* Build configuration list for PBXNativeTarget "miCardAnimation" */;
 			buildPhases = (
+				FD14BB29C2E5CB156C52FF88 /* [CP] Check Pods Manifest.lock */,
 				F962B75D256F598F00E42CE3 /* Sources */,
 				F962B75E256F598F00E42CE3 /* Frameworks */,
 				F962B75F256F598F00E42CE3 /* Resources */,
+				530D320AC8C048A458581D1B /* [CP] Embed Pods Frameworks */,
+				98BE0D704E74DA0BF7B07A0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F962B78E256F599100E42CE3 /* Build configuration list for PBXNativeTarget "miCardAnimationTests" */;
 			buildPhases = (
+				3028E615EAFEF64B9559DDF3 /* [CP] Check Pods Manifest.lock */,
 				F962B773256F599100E42CE3 /* Sources */,
 				F962B774256F599100E42CE3 /* Frameworks */,
 				F962B775256F599100E42CE3 /* Resources */,
@@ -185,9 +232,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F962B791256F599100E42CE3 /* Build configuration list for PBXNativeTarget "miCardAnimationUITests" */;
 			buildPhases = (
+				FECC13B45821EAB390371B8D /* [CP] Check Pods Manifest.lock */,
 				F962B77E256F599100E42CE3 /* Sources */,
 				F962B77F256F599100E42CE3 /* Frameworks */,
 				F962B780256F599100E42CE3 /* Resources */,
+				D82692CCB0531C152365D95B /* [CP] Embed Pods Frameworks */,
+				8FC51E55BA29C839D3ABC9C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -249,6 +299,7 @@
 			files = (
 				F962B771256F599000E42CE3 /* LaunchScreen.storyboard in Resources */,
 				F962B76E256F599000E42CE3 /* Assets.xcassets in Resources */,
+				F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */,
 				F962B797256F5ABA00E42CE3 /* MiCardView.xib in Resources */,
 				F962B76C256F598F00E42CE3 /* Main.storyboard in Resources */,
 			);
@@ -270,18 +321,155 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3028E615EAFEF64B9559DDF3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-miCardAnimationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		530D320AC8C048A458581D1B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FC51E55BA29C839D3ABC9C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98BE0D704E74DA0BF7B07A0F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation/Pods-miCardAnimation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D82692CCB0531C152365D95B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-miCardAnimation-miCardAnimationUITests/Pods-miCardAnimation-miCardAnimationUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD14BB29C2E5CB156C52FF88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-miCardAnimation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FECC13B45821EAB390371B8D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-miCardAnimation-miCardAnimationUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F962B75D256F598F00E42CE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F962B769256F598F00E42CE3 /* ViewController.swift in Sources */,
-				F962B799256F5C4600E42CE3 /* XibInstantiate.swift in Sources */,
+				F92CEE96259C6EF500CDEF62 /* BViewController.swift in Sources */,
 				F962B79D256F5D7800E42CE3 /* BundleUtility.swift in Sources */,
-				F962B79B256F5CF700E42CE3 /* UIImageExtention.swift in Sources */,
 				F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */,
 				F962B795256F5AAE00E42CE3 /* MiCardView.swift in Sources */,
 				F962B767256F598F00E42CE3 /* SceneDelegate.swift in Sources */,
+				F92A948825A591AF00C1617A /* UISate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +640,7 @@
 		};
 		F962B78C256F599100E42CE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CA8ED7A7D918F671A25B137 /* Pods-miCardAnimation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -467,11 +656,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
 		};
 		F962B78D256F599100E42CE3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A36AA2521F2EE4B95CD18DA7 /* Pods-miCardAnimation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -487,11 +678,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
 		};
 		F962B78F256F599100E42CE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81BA1B34DCDE04F1A6084A38 /* Pods-miCardAnimationTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -514,6 +707,7 @@
 		};
 		F962B790256F599100E42CE3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30FD753C69AD98CFDF85F9A6 /* Pods-miCardAnimationTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -536,6 +730,7 @@
 		};
 		F962B792256F599100E42CE3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCD86C159A74F0176B95EB22 /* Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -556,6 +751,7 @@
 		};
 		F962B793256F599100E42CE3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32F227AF962417072392A493 /* Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Pru-DU-8Kj" customClass="ReflectMiCardView" customModule="miCardAnimation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="624" height="641"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHN-h0-BSu" userLabel="Vertical">
+                    <rect key="frame" x="0.0" y="0.0" width="624" height="641"/>
+                    <subviews>
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_poker_game_150x210" translatesAutoresizingMaskIntoConstraints="NO" id="F7h-A0-HwL" userLabel="不要動" customClass="PokerImageView" customModule="miCardAnimation">
+                            <rect key="frame" x="62.5" y="-29" width="499" height="699"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="F7h-A0-HwL" secondAttribute="height" multiplier="25:35" id="mQL-C0-9kd"/>
+                            </constraints>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_pokerDiamond_04_game_150x210" translatesAutoresizingMaskIntoConstraints="NO" id="dmF-j1-bV0" userLabel="finalVertical" customClass="PokerImageView" customModule="miCardAnimation">
+                            <rect key="frame" x="122.5" y="55" width="379" height="531"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sd0-4Y-Lx5" customClass="PokerImageView" customModule="miCardAnimation" customModuleProvider="target">
+                            <rect key="frame" x="125" y="58.5" width="374" height="524"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Sd0-4Y-Lx5" secondAttribute="height" multiplier="25:35" id="vSl-qE-E4j"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="dmF-j1-bV0" firstAttribute="width" secondItem="F7h-A0-HwL" secondAttribute="width" multiplier="0.76" id="AVR-Zi-VaR"/>
+                        <constraint firstItem="Sd0-4Y-Lx5" firstAttribute="centerY" secondItem="iHN-h0-BSu" secondAttribute="centerY" id="L2q-gn-McL"/>
+                        <constraint firstItem="F7h-A0-HwL" firstAttribute="width" secondItem="iHN-h0-BSu" secondAttribute="width" multiplier="0.8" id="P1p-Dz-Spx"/>
+                        <constraint firstItem="dmF-j1-bV0" firstAttribute="centerX" secondItem="Sd0-4Y-Lx5" secondAttribute="centerX" id="cIW-5K-RZA"/>
+                        <constraint firstItem="dmF-j1-bV0" firstAttribute="centerY" secondItem="Sd0-4Y-Lx5" secondAttribute="centerY" id="d8X-bD-g6S"/>
+                        <constraint firstItem="Sd0-4Y-Lx5" firstAttribute="centerX" secondItem="iHN-h0-BSu" secondAttribute="centerX" id="gD0-pP-Cys"/>
+                        <constraint firstItem="F7h-A0-HwL" firstAttribute="centerX" secondItem="iHN-h0-BSu" secondAttribute="centerX" id="gUd-EP-uF7"/>
+                        <constraint firstItem="F7h-A0-HwL" firstAttribute="centerY" secondItem="iHN-h0-BSu" secondAttribute="centerY" id="knL-1w-o2n"/>
+                        <constraint firstItem="Sd0-4Y-Lx5" firstAttribute="width" secondItem="iHN-h0-BSu" secondAttribute="width" multiplier="0.6" id="tnN-gJ-BOH"/>
+                        <constraint firstItem="dmF-j1-bV0" firstAttribute="width" secondItem="dmF-j1-bV0" secondAttribute="height" multiplier="25:35" id="wwM-ym-tU9"/>
+                    </constraints>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaU-qk-Vew">
+                    <rect key="frame" x="262" y="82.5" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.99810987709999999" green="0.20541957020000001" blue="0.074735693630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="VnX-X3-v8Y"/>
+                    </constraints>
+                    <color key="tintColor" red="0.99810987709999999" green="0.20541957020000001" blue="0.074735693630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Reset">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3CL-3C-od7" userLabel="Horizontal">
+                    <rect key="frame" x="106" y="506" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="syx-cv-Bru"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Horizontal"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BoU-77-DYB" userLabel="Vertical">
+                    <rect key="frame" x="418" y="506" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Vertical"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Rbe-bt-Gv1"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="BoU-77-DYB" firstAttribute="top" secondItem="3CL-3C-od7" secondAttribute="top" id="0SG-0t-byu"/>
+                <constraint firstItem="3CL-3C-od7" firstAttribute="centerX" secondItem="Rbe-bt-Gv1" secondAttribute="centerX" multiplier="0.5" id="7yO-EE-FUL"/>
+                <constraint firstItem="iaU-qk-Vew" firstAttribute="centerY" secondItem="Rbe-bt-Gv1" secondAttribute="centerY" multiplier="0.3" id="8pm-LJ-Epn"/>
+                <constraint firstItem="BoU-77-DYB" firstAttribute="width" secondItem="3CL-3C-od7" secondAttribute="width" id="JDj-Pq-Dk5"/>
+                <constraint firstItem="3CL-3C-od7" firstAttribute="centerY" secondItem="Rbe-bt-Gv1" secondAttribute="centerY" multiplier="1.6" id="N10-eW-M2n"/>
+                <constraint firstItem="iHN-h0-BSu" firstAttribute="centerX" secondItem="Pru-DU-8Kj" secondAttribute="centerX" id="bIM-6U-JUy"/>
+                <constraint firstItem="BoU-77-DYB" firstAttribute="centerX" secondItem="Rbe-bt-Gv1" secondAttribute="centerX" multiplier="1.5" id="baa-Dn-zPz"/>
+                <constraint firstItem="iHN-h0-BSu" firstAttribute="width" secondItem="Pru-DU-8Kj" secondAttribute="width" id="iXh-AS-790"/>
+                <constraint firstItem="iHN-h0-BSu" firstAttribute="top" secondItem="Pru-DU-8Kj" secondAttribute="top" id="sII-TK-ciz"/>
+                <constraint firstAttribute="bottom" secondItem="iHN-h0-BSu" secondAttribute="bottom" id="v8U-H4-wpi"/>
+                <constraint firstItem="iaU-qk-Vew" firstAttribute="centerX" secondItem="Rbe-bt-Gv1" secondAttribute="centerX" id="zIm-gl-oSo"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="207.24637681159422" y="216.62946428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="pic_pokerDiamond_04_game_150x210" width="150" height="210"/>
+        <image name="pic_poker_game_150x210" width="50" height="70"/>
+    </resources>
+</document>

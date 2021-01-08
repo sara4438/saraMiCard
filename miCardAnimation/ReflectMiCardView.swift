@@ -1,9 +1,9 @@
 //
-//  pokerView.swift
+//  ReflectMiCardView.swift
 //  miCardAnimation
 //
-//  Created by Sara_Yang on 2020/11/26.
-//  Copyright © 2020 Sara_Yang. All rights reserved.
+//  Created by Sara_Yang on 2021/1/7.
+//  Copyright © 2021 Sara_Yang. All rights reserved.
 //
 
 
@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 //import RxCocoa
 
-class MiCardView: UIView {
+class ReflectMiCardView: UIView {
     @IBOutlet weak var aConstraint: NSLayoutConstraint!
     @IBOutlet weak var constraintX: NSLayoutConstraint!
     @IBOutlet weak var constraintY: NSLayoutConstraint!
@@ -41,17 +41,16 @@ class MiCardView: UIView {
     private let backImage = UIImage(named: "pic_poker_game_150x210")
     private let frontImage = UIImage(named: "pic_pokerDiamond_04_game_150x210")
     private let testImg = UIImage(named: "pic_pokerDiamond_10_game_150x210")
-    private var isAnimating: Bool = false
+    var isAnimating: Bool = false
     private var queue = QueueArray<CGPoint>()
     private var firstQ = QueueArray<CGPoint>()
     var timers = Timer()
     private var cornerArr: [Corner] = [.closeCorner, .closeCorner, .closeCorner, .closeCorner, .rightBottom, .bottom, .leftBottom, .closeCorner]
     public var fakeTouchPoint: BehaviorSubject<CGPoint> = BehaviorSubject<CGPoint>(value: CGPoint(x: 0, y: 0))
+    var start = false
+    var start2 = false
     var disposeBag: DisposeBag = DisposeBag()
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        loadXib()
-//    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
@@ -70,9 +69,97 @@ class MiCardView: UIView {
             if reset {
                 self.reset()
                 self.queue.clear()
+                self.firstQ.clear()
             }
         }).disposed(by: disposeBag)
+        
+        UIState.instance.release.subscribe(onNext:{[weak self] release in
+            guard let self = self else { return }
+            if release {
+                self.flipBackAnimation()
+                self.queue.clear()
+                self.firstQ.clear()
+            }
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.enterDragingCorner.subscribe(onNext:{[weak self] corner in
+            guard let self = self else { return }
+            self.enterDragingCorner = corner
+        }).disposed(by: disposeBag)
+        
+        UIState.instance.touchPoint.skip(1).subscribe(onNext:{[weak self] point in
+            guard let self = self else { return }
+//            print("xxxx" , point.x, point.y)
+            self.firstQ.enqueue(point)
+            if !self.start {
+                self.startSendFake()
+                self.start = true
+            }
+            
+        }).disposed(by: disposeBag)
+        //用throttle
+        self.fakeTouchPoint.throttle(0.01, scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
+            guard let self = self else { return }
+            print("xxxx" , point.x, point.y)
+//            self.fakeTouchPoint.onNext(point)
+            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+        }).disposed(by: disposeBag)
+        //用Q
+//        self.fakeTouchPoint.subscribe(onNext:{[weak self] point in
+//            guard let self = self else { return }
+//            let _ = self.queue.enqueue(point)
+//            print("xxxxQ :", self.queue)
+////            if self.queue.size() >= 10 {
+//            if !self.start2 {
+//                self.startTakeQueue(secondInterval: 0.001)
+//                self.start2 = true
+//            }
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+//        }).disposed(by: disposeBag)
+        
+        UIState.instance.flipCard.skip(1).subscribe(onNext:{[weak self] flip in
+            guard let self = self else { return }
+            if flip {
+                self.flipCard()
+                self.queue.clear()
+                self.firstQ.clear()
+            }
+            
+        }).disposed(by: disposeBag)
+    }
     
+    func getRandom(start: Double, end: Double) -> Double {
+        return Double.random(in: start...end)
+    }
+    func startSendFake(){
+        print("xxxxRandom", self.getRandom(start: 0.1, end: 1))
+        self.timers = Timer.scheduledTimer(timeInterval: self.getRandom(start: 0.02, end: 0.5), target: self, selector: #selector(self.sendFakePoint), userInfo: nil, repeats: true)
+    }
+   
+//            self.fakeTouchPoint.onNext(point)
+    
+    @objc func sendFakePoint() {
+        if !self.firstQ.isEmpty {
+            print("aaaaaa", point)
+            self.fakeTouchPoint.onNext(self.firstQ.dequeue()!)
+        }
+    }
+    
+    func startTakeQueue(secondInterval: Double) {
+//        var timer = Timer()
+        self.timers = Timer.scheduledTimer(timeInterval: secondInterval, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timerAction() {
+        var point : CGPoint?
+        if !self.queue.isEmpty {
+           
+            point = self.queue.dequeue()
+            print("aaaaa", point)
+            if let point = point {
+                self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+            }
+        }
     }
     
     func loadXib(){
@@ -120,10 +207,6 @@ class MiCardView: UIView {
          updateCurlImageView()
         self.bigPoker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
         self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-        //Head
-        self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
-        updateCurlImageView()
-        //
        
         updateFinalPokerXY()
     }
@@ -266,6 +349,7 @@ class MiCardView: UIView {
                 UIState.instance.enterDragingCorner.onNext(.none)
                 UIState.instance.touchPoint.onNext(CGPoint(x:0, y:0))
                 self.isAnimating = false
+                self.start = false
                 return
             }
             self.isAnimating = true
@@ -411,6 +495,7 @@ class MiCardView: UIView {
         }
         self.playPokerAnimation(poker: self.bigPoker!, option: verticalAnimate!)
         UIState.instance.enterDragingCorner.onNext(.none)
+        self.start = false
     }
     
     func changeToHorizontal() {
@@ -419,12 +504,8 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
                 self.bigPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 90)
-                //Head
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y
-
-                //咪牌self.bigPoker.frame.origin.x = self.bigPokerX - 34
-                //咪牌self.bigPoker.frame.origin.y = self.bigPokerY + 34
-
+                self.bigPoker.frame.origin.x = self.bigPokerX - 34
+                self.bigPoker.frame.origin.y = self.bigPokerY + 34
                 self.updateFinalPokerXY()
                 self.finalPoker.frame.origin.x = self.bigPoker.frame.origin.x
                 self.finalPoker.frame.origin.y = self.bigPoker.frame.origin.y
@@ -439,8 +520,6 @@ class MiCardView: UIView {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, animations: {
                 self.bigPoker.transform = CGAffineTransform(rotationAngle:  CGFloat.pi / 180 * 0 )
                 self.finalPoker.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 180 * 0)
-                //Head
-                self.finalPoker.frame.origin.y = self.finalPoker.frame.origin.y 
                 
                  self.updateFinalPokerXY()
             }, completion: nil)
@@ -479,7 +558,7 @@ class MiCardView: UIView {
     }
 }
 
-extension MiCardView {
+extension ReflectMiCardView {
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         if isAnimating {
@@ -488,8 +567,6 @@ extension MiCardView {
         let enterCorner = self.checkEnterCorner(point: point)
         UIState.instance.enterDragingCorner.onNext(enterCorner)
         UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y ))
-        self.enterDragingCorner = enterCorner
-        self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -506,49 +583,41 @@ extension MiCardView {
             case self.cornerArr[0]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[1]:
                 if  point.y > self.bounds.midY + flipHeightControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[2]:
                 if point.y > self.bounds.midY + flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[3]:
                 if  point.x < self.bounds.midX - flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[4]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x < self.bounds.midX - flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[5]:
                 if  point.y < self.bounds.midY - flipHeightControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[6]:
                 if point.y < self.bounds.midY - flipHeightControl || point.x > self.bounds.midX + flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             case self.cornerArr[7]:
                 if  point.x > self.bounds.midX + flipWidthControl {
                     UIState.instance.setFlipCard()
-                    flipCard()
                     return
                 }
             default:
@@ -558,7 +627,6 @@ extension MiCardView {
         if (self.point(inside: point, with: nil)) {
             if self.enterDragingCorner != .none {
                 UIState.instance.setTouchPoint(point: CGPoint(x: point.x, y: point.y))
-                self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
                 
             }
         }
@@ -572,7 +640,6 @@ extension MiCardView {
         if self.enterDragingCorner == .none || self.enterDragingCorner == .closeCorner {
             return
         }
-        self.flipBackAnimation()
         UIState.instance.releaseTouch()
     }
     
@@ -580,79 +647,6 @@ extension MiCardView {
         if isAnimating {
             return
         }
-        self.flipBackAnimation()
         UIState.instance.releaseTouch()
     }
-}
-
-
-class PokerImageView: UIImageView {
-    public var hasSuit: Bool = false
-    public var usedImageFileName: String = "pic_poker_game_150x210"
-}
-
-
-public enum Corner {
-    case leftTop
-    case top
-    case rightTop
-    case right
-    case rightBottom
-    case bottom
-    case leftBottom
-    case left
-    case none
-    case closeCorner
-}
-
-public enum  State {
-    case horizontal
-    case vertical
-}
-
-public struct QueueArray<T>: Queue {
-    public typealias Element = CGPoint
-    
-    
-    private var array:[Element] = []
-    
-    public init(){}
-    
-    public var isEmpty: Bool {
-        return array.isEmpty
-    }
-    //bigO(1)
-    
-    public var peek: Element? {
-        print(array.first)
-        return array.first
-    }
-    //bigO(1)
-    
-    public mutating func enqueue(_ element: Element) -> Bool {
-        array.append(element)
-        return true
-        //bigO(1)
-    }
-    
-    public func size() -> Int {
-        return array.count
-    }
-    
-    public mutating func clear() {
-        array.removeAll()
-    }
-    
-    public mutating func dequeue() -> Element? {
-        return isEmpty ? nil : array.removeFirst()
-        //isEmpty = true 回傳nil false就removeFirst()
-    }
-}
-
-public protocol Queue {
-    associatedtype Element
-    mutating func enqueue(_ element: Element) ->Bool
-    mutating func dequeue() -> Element?
-    var isEmpty: Bool { get }
-    var peek: Element? { get }
 }
