@@ -13,6 +13,8 @@
 		F92A948825A591AF00C1617A /* UISate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A948725A591AF00C1617A /* UISate.swift */; };
 		F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */; };
 		F92CEE96259C6EF500CDEF62 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92CEE95259C6EF500CDEF62 /* BViewController.swift */; };
+		F9536CEF25A8099900A0FDA1 /* ReflectMiCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9536CED25A8099900A0FDA1 /* ReflectMiCardView.xib */; };
+		F9536CF025A8099900A0FDA1 /* ReflectMiCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9536CEE25A8099900A0FDA1 /* ReflectMiCardView.swift */; };
 		F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B764256F598F00E42CE3 /* AppDelegate.swift */; };
 		F962B767256F598F00E42CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B766256F598F00E42CE3 /* SceneDelegate.swift */; };
 		F962B769256F598F00E42CE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962B768256F598F00E42CE3 /* ViewController.swift */; };
@@ -54,6 +56,8 @@
 		F92A948725A591AF00C1617A /* UISate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISate.swift; sourceTree = "<group>"; };
 		F92CEE93259C6BF900CDEF62 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F92CEE95259C6EF500CDEF62 /* BViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
+		F9536CED25A8099900A0FDA1 /* ReflectMiCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReflectMiCardView.xib; sourceTree = "<group>"; };
+		F9536CEE25A8099900A0FDA1 /* ReflectMiCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReflectMiCardView.swift; sourceTree = "<group>"; };
 		F962B761256F598F00E42CE3 /* miCardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miCardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962B764256F598F00E42CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F962B766256F598F00E42CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		F962B763256F598F00E42CE3 /* miCardAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				F9536CEE25A8099900A0FDA1 /* ReflectMiCardView.swift */,
+				F9536CED25A8099900A0FDA1 /* ReflectMiCardView.xib */,
 				F962B764256F598F00E42CE3 /* AppDelegate.swift */,
 				F962B766256F598F00E42CE3 /* SceneDelegate.swift */,
 				F962B768256F598F00E42CE3 /* ViewController.swift */,
@@ -299,6 +305,7 @@
 			files = (
 				F962B771256F599000E42CE3 /* LaunchScreen.storyboard in Resources */,
 				F962B76E256F599000E42CE3 /* Assets.xcassets in Resources */,
+				F9536CEF25A8099900A0FDA1 /* ReflectMiCardView.xib in Resources */,
 				F92CEE94259C6BF900CDEF62 /* GoogleService-Info.plist in Resources */,
 				F962B797256F5ABA00E42CE3 /* MiCardView.xib in Resources */,
 				F962B76C256F598F00E42CE3 /* Main.storyboard in Resources */,
@@ -465,6 +472,7 @@
 			files = (
 				F962B769256F598F00E42CE3 /* ViewController.swift in Sources */,
 				F92CEE96259C6EF500CDEF62 /* BViewController.swift in Sources */,
+				F9536CF025A8099900A0FDA1 /* ReflectMiCardView.swift in Sources */,
 				F962B79D256F5D7800E42CE3 /* BundleUtility.swift in Sources */,
 				F962B765256F598F00E42CE3 /* AppDelegate.swift in Sources */,
 				F962B795256F5AAE00E42CE3 /* MiCardView.swift in Sources */,
@@ -642,6 +650,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5CA8ED7A7D918F671A25B137 /* Pods-miCardAnimation.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -664,6 +673,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A36AA2521F2EE4B95CD18DA7 /* Pods-miCardAnimation.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -686,7 +696,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81BA1B34DCDE04F1A6084A38 /* Pods-miCardAnimationTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YRP2N79T8;
@@ -709,7 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30FD753C69AD98CFDF85F9A6 /* Pods-miCardAnimationTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YRP2N79T8;
@@ -732,7 +742,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FCD86C159A74F0176B95EB22 /* Pods-miCardAnimation-miCardAnimationUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationUITests/Info.plist;
@@ -753,7 +763,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 32F227AF962417072392A493 /* Pods-miCardAnimation-miCardAnimationUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7YRP2N79T8;
 				INFOPLIST_FILE = miCardAnimationUITests/Info.plist;

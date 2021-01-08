@@ -98,7 +98,7 @@ class ReflectMiCardView: UIView {
             
         }).disposed(by: disposeBag)
         //用throttle
-        self.fakeTouchPoint.throttle(0.01, scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
+        self.fakeTouchPoint.throttle(RxTimeInterval.milliseconds(500), scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
             guard let self = self else { return }
             print("xxxx" , point.x, point.y)
 //            self.fakeTouchPoint.onNext(point)

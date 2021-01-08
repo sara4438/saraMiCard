@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
             endingLineNumber = "157"
-            landmarkName = "setPokerImageView(poker:fileName:option:)"
+            landmarkName = "getAngle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -144,8 +144,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "pageCurlWithShadowTransition(inputImage:inputTargetImage:inputBacksideImage:inputTimeKey:slope:)"
-            landmarkType = "7">
+            landmarkName = "MiCardView"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "3B246C98-A46E-40E2-8FA8-D1A6B8D6E0EF - 1f39c5e88b7f95bb"
