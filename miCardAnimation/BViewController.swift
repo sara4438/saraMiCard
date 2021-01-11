@@ -11,6 +11,8 @@ import FBSDKLoginKit
 import RxSwift
 
 class BViewController : UIViewController{
+    @IBOutlet weak var toThrottle: UIButton!
+    @IBOutlet weak var toQueue: UIButton!
     override func viewDidLoad() {
        super.viewDidLoad()
     }
@@ -24,4 +26,20 @@ class BViewController : UIViewController{
     @IBAction func reset(_ sender: Any) {
         UIState.instance.reset.onNext(true)
     }
+   
+    @IBAction func changeDelayState(_ sender: UIButton) {
+        if sender == self.toThrottle {
+            print("bbb")
+            UIState.instance.delayAnimateState.onNext(.throttle)
+        } else if sender == self.toQueue {
+            print("aaa")
+            UIState.instance.delayAnimateState.onNext(.queue)
+        } else {
+            print("button wrong")
+            return
+        }
+    }
+    
+    
+    
 }

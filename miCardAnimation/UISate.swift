@@ -16,7 +16,8 @@ public class UIState {
     public var release: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
     public var enterDragingCorner: BehaviorSubject<Corner> = BehaviorSubject<Corner>(value: .none)
     public var flipCard: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
-    
+    public var delayAnimateState: BehaviorSubject<DelayAnimateState> = BehaviorSubject<DelayAnimateState>(value: .throttle)
+//    public var toQueue: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
     public func releaseTouch() {
         
         self.release.onNext(true)

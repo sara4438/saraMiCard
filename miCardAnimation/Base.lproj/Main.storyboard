@@ -173,6 +173,20 @@
                                     <action selector="toVertical:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wms-pZ-xpY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqQ-wK-Z0i" userLabel="throttle">
+                                <rect key="frame" x="68" y="398" width="55" height="30"/>
+                                <state key="normal" title="Throttle"/>
+                                <connections>
+                                    <action selector="changeDelayState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Tf-eO-ANP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5J-E9-YXw" userLabel="queue">
+                                <rect key="frame" x="290.5" y="398" width="46" height="30"/>
+                                <state key="normal" title="Queue"/>
+                                <connections>
+                                    <action selector="changeDelayState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LLG-QY-TkT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -181,22 +195,32 @@
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="1ia-n6-5Nf"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="leading" secondItem="QnH-pz-1FE" secondAttribute="leading" id="6Ta-7k-nsG"/>
                             <constraint firstItem="olc-6m-Jfu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Eti-8F-Ff1"/>
+                            <constraint firstItem="y5J-E9-YXw" firstAttribute="trailing" secondItem="v4h-gW-Ivj" secondAttribute="trailing" id="Huz-9e-3K0"/>
+                            <constraint firstItem="y5J-E9-YXw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pqQ-wK-Z0i" secondAttribute="trailing" constant="8" symbolic="YES" id="IDq-zT-cyj"/>
                             <constraint firstItem="RGC-2n-SZM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Jnd-g6-lfp"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="yg5-Be-EK4" secondAttribute="height" multiplier="25:25" id="MGH-En-uXS"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.45" id="Q3g-xj-ALc"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="width" id="Z5l-j1-7hV"/>
                             <constraint firstItem="olc-6m-Jfu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.5" id="Zke-3l-qeA"/>
+                            <constraint firstItem="olc-6m-Jfu" firstAttribute="top" secondItem="y5J-E9-YXw" secondAttribute="bottom" constant="10" id="cN3-lK-uL8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqQ-wK-Z0i" secondAttribute="trailing" symbolic="YES" id="dEx-P9-kVo"/>
+                            <constraint firstItem="y5J-E9-YXw" firstAttribute="top" secondItem="pqQ-wK-Z0i" secondAttribute="top" id="hYT-RM-jta"/>
                             <constraint firstItem="v4h-gW-Ivj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="i4O-CW-kac"/>
                             <constraint firstItem="v4h-gW-Ivj" firstAttribute="top" secondItem="olc-6m-Jfu" secondAttribute="top" id="kHO-sa-HBy"/>
+                            <constraint firstItem="pqQ-wK-Z0i" firstAttribute="leading" secondItem="olc-6m-Jfu" secondAttribute="leading" id="phY-2K-iiL"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="rBb-f0-gbv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BgE-R5-rtI"/>
+                    <connections>
+                        <outlet property="toQueue" destination="y5J-E9-YXw" id="zFw-bb-UEm"/>
+                        <outlet property="toThrottle" destination="pqQ-wK-Z0i" id="yXe-oh-zBa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141" y="132"/>
+            <point key="canvasLocation" x="140.57971014492756" y="131.91964285714286"/>
         </scene>
     </scenes>
     <resources>

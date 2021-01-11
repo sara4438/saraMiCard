@@ -49,11 +49,19 @@ class ReflectMiCardView: UIView {
     public var fakeTouchPoint: BehaviorSubject<CGPoint> = BehaviorSubject<CGPoint>(value: CGPoint(x: 0, y: 0))
     var start = false
     var start2 = false
+    public var delayAnimateState : DelayAnimateState = .throttle
+    public var throttlePoint: BehaviorSubject<CGPoint> = BehaviorSubject<CGPoint>(value: CGPoint())
     var disposeBag: DisposeBag = DisposeBag()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+        
+        
+        UIState.instance.delayAnimateState.subscribe(onNext:{[weak self] state in
+            self?.delayAnimateState = state
+            
+        }).disposed(by: disposeBag)
         
         UIState.instance.isVertical.subscribe(onNext:{[weak self] vertical in
             guard let self = self else { return }
@@ -87,23 +95,55 @@ class ReflectMiCardView: UIView {
             self.enterDragingCorner = corner
         }).disposed(by: disposeBag)
         
-        UIState.instance.touchPoint.skip(1).subscribe(onNext:{[weak self] point in
+   
+        //throttle
+//        UIState.instance.delayAnimateState.filter { $0 == .throttle }.flatMapLatest { _ in UIState.instance.touchPoint.throttle(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance) }.subscribe(onNext: {[weak self] point in
+//            guard let self = self else { return }
+//            print("aaaaaa throttle")
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+//        }).disposed(by: disposeBag)
+        
+//        self.throttlePoint.throttle(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance).subscribe(onNext:{[weak self] point in
+//            guard let self = self else { return }
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+//        }).disposed(by:disposeBag)
+        
+        Observable.combineLatest(UIState.instance.delayAnimateState, UIState.instance.touchPoint.throttle(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)).subscribe(onNext:{[weak self] (state ,point) in
             guard let self = self else { return }
-//            print("xxxx" , point.x, point.y)
-            self.firstQ.enqueue(point)
-            if !self.start {
-                self.startSendFake()
-                self.start = true
+            if state == .throttle {
+                print("aaaaaa throttle")
+//                self.throttlePoint.onNext(point)
+                self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY:point.y)
+            } else {
+                print("aaaaaa QQQ")
+                self.queue.enqueue(point)
+                self.startTakeQueue(secondInterval: 0.8 )
             }
             
         }).disposed(by: disposeBag)
+        
+       //用Q(正常狀況)
+//        UIState.instance.delayAnimateState.filter { $0 == .queue }.flatMapLatest { _ in  UIState.instance.touchPoint } .subscribe(onNext:{[weak self] point in
+//                guard let self = self else { return }
+//                print("aaaaa QQQ")
+//                self.queue.enqueue(point)
+//                self.startTakeQueue(secondInterval: 0.5 )
+//    //            if !self.start {
+//    //                self.startSendFake()
+//    //                self.start = true
+//    //            }
+//            }).disposed(by: disposeBag)
+        
+        
+        
+        ///模擬封包延遲
         //用throttle
-        self.fakeTouchPoint.throttle(RxTimeInterval.milliseconds(500), scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
-            guard let self = self else { return }
-            print("xxxx" , point.x, point.y)
-//            self.fakeTouchPoint.onNext(point)
-            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
-        }).disposed(by: disposeBag)
+//        self.fakeTouchPoint.throttle(RxTimeInterval.milliseconds(500), scheduler:  MainScheduler.instance).subscribe(onNext:{[weak self] point in
+//            guard let self = self else { return }
+//            print("xxxx" , point.x, point.y)
+////            self.fakeTouchPoint.onNext(point) //製造封包延遲效果
+//            self.setCurlImageView(inputTimeKeyX: point.x, inputTimeKeyY: point.y)
+//        }).disposed(by: disposeBag)
         //用Q
 //        self.fakeTouchPoint.subscribe(onNext:{[weak self] point in
 //            guard let self = self else { return }
@@ -128,6 +168,7 @@ class ReflectMiCardView: UIView {
         }).disposed(by: disposeBag)
     }
     
+  
     func getRandom(start: Double, end: Double) -> Double {
         return Double.random(in: start...end)
     }
@@ -140,7 +181,7 @@ class ReflectMiCardView: UIView {
     
     @objc func sendFakePoint() {
         if !self.firstQ.isEmpty {
-            print("aaaaaa", point)
+//            print("aaaaaa", point)
             self.fakeTouchPoint.onNext(self.firstQ.dequeue()!)
         }
     }
@@ -649,4 +690,9 @@ extension ReflectMiCardView {
         }
         UIState.instance.releaseTouch()
     }
+}
+
+public enum DelayAnimateState {
+    case throttle
+    case queue
 }
