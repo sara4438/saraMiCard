@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CF4-GQ-C9C">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -119,14 +119,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-pz-1FE" customClass="MiCardView" customModule="miCardAnimation" customModuleProvider="target">
-                                <rect key="frame" x="62" y="79" width="290" height="290"/>
+                                <rect key="frame" x="74.5" y="114" width="265" height="265"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="height" id="Dkb-3K-ogI"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yg5-Be-EK4" customClass="ReflectMiCardView" customModule="miCardAnimation" customModuleProvider="target">
-                                <rect key="frame" x="62" y="512" width="290" height="290"/>
+                                <rect key="frame" x="74.5" y="515.5" width="265" height="265"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGC-2n-SZM">
@@ -146,7 +146,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olc-6m-Jfu" userLabel="Horizontal">
-                                <rect key="frame" x="68" y="438" width="71" height="30"/>
+                                <rect key="frame" x="68" y="447" width="71" height="30"/>
                                 <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Horizontal"/>
@@ -160,7 +160,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4h-gW-Ivj" userLabel="Vertical">
-                                <rect key="frame" x="284.5" y="438" width="52" height="30"/>
+                                <rect key="frame" x="284.5" y="447" width="52" height="30"/>
                                 <color key="backgroundColor" red="0.56918770070000002" green="0.55923593039999997" blue="0.65491378310000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Vertical"/>
@@ -174,46 +174,91 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqQ-wK-Z0i" userLabel="throttle">
-                                <rect key="frame" x="68" y="398" width="55" height="30"/>
+                                <rect key="frame" x="76" y="414" width="55" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Throttle"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="changeDelayState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Tf-eO-ANP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5J-E9-YXw" userLabel="queue">
-                                <rect key="frame" x="290.5" y="398" width="46" height="30"/>
+                                <rect key="frame" x="284.5" y="414" width="52" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Queue"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="changeDelayState:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LLG-QY-TkT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72f-Yd-I3H">
+                                <rect key="frame" x="183" y="790.5" width="48" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Logout"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-tS-MUI">
+                                <rect key="frame" x="191.5" y="78" width="31" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVK-6S-J1N">
+                                <rect key="frame" x="191.5" y="97.5" width="31" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="RGC-2n-SZM" firstAttribute="top" secondItem="olc-6m-Jfu" secondAttribute="top" id="1cP-yJ-Fwg"/>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="1ia-n6-5Nf"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.64" id="1ia-n6-5Nf"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="leading" secondItem="QnH-pz-1FE" secondAttribute="leading" id="6Ta-7k-nsG"/>
-                            <constraint firstItem="olc-6m-Jfu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Eti-8F-Ff1"/>
+                            <constraint firstItem="Hcw-tS-MUI" firstAttribute="bottom" secondItem="mVK-6S-J1N" secondAttribute="top" constant="-5" id="D2D-RL-tmq"/>
+                            <constraint firstItem="olc-6m-Jfu" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.02" id="Eti-8F-Ff1"/>
+                            <constraint firstItem="y5J-E9-YXw" firstAttribute="centerX" secondItem="v4h-gW-Ivj" secondAttribute="centerX" id="GaO-fH-FgN"/>
                             <constraint firstItem="y5J-E9-YXw" firstAttribute="trailing" secondItem="v4h-gW-Ivj" secondAttribute="trailing" id="Huz-9e-3K0"/>
-                            <constraint firstItem="y5J-E9-YXw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pqQ-wK-Z0i" secondAttribute="trailing" constant="8" symbolic="YES" id="IDq-zT-cyj"/>
                             <constraint firstItem="RGC-2n-SZM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Jnd-g6-lfp"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="yg5-Be-EK4" secondAttribute="height" multiplier="25:25" id="MGH-En-uXS"/>
                             <constraint firstItem="QnH-pz-1FE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0P-rJ-Gxz"/>
-                            <constraint firstItem="yg5-Be-EK4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.45" id="Q3g-xj-ALc"/>
+                            <constraint firstItem="yg5-Be-EK4" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.43" id="Q3g-xj-ALc"/>
+                            <constraint firstItem="RGC-2n-SZM" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="TDD-q0-ZNb"/>
                             <constraint firstItem="yg5-Be-EK4" firstAttribute="width" secondItem="QnH-pz-1FE" secondAttribute="width" id="Z5l-j1-7hV"/>
                             <constraint firstItem="olc-6m-Jfu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.5" id="Zke-3l-qeA"/>
-                            <constraint firstItem="olc-6m-Jfu" firstAttribute="top" secondItem="y5J-E9-YXw" secondAttribute="bottom" constant="10" id="cN3-lK-uL8"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="top" secondItem="mVK-6S-J1N" secondAttribute="bottom" constant="2" id="bH3-Xb-a4Z"/>
+                            <constraint firstItem="olc-6m-Jfu" firstAttribute="top" secondItem="y5J-E9-YXw" secondAttribute="bottom" constant="3" id="cN3-lK-uL8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqQ-wK-Z0i" secondAttribute="trailing" symbolic="YES" id="dEx-P9-kVo"/>
                             <constraint firstItem="y5J-E9-YXw" firstAttribute="top" secondItem="pqQ-wK-Z0i" secondAttribute="top" id="hYT-RM-jta"/>
+                            <constraint firstItem="72f-Yd-I3H" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hh7-9K-6eY"/>
                             <constraint firstItem="v4h-gW-Ivj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="i4O-CW-kac"/>
+                            <constraint firstItem="Hcw-tS-MUI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="iqe-9S-i68"/>
                             <constraint firstItem="v4h-gW-Ivj" firstAttribute="top" secondItem="olc-6m-Jfu" secondAttribute="top" id="kHO-sa-HBy"/>
-                            <constraint firstItem="pqQ-wK-Z0i" firstAttribute="leading" secondItem="olc-6m-Jfu" secondAttribute="leading" id="phY-2K-iiL"/>
-                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" id="rBb-f0-gbv"/>
+                            <constraint firstItem="72f-Yd-I3H" firstAttribute="top" secondItem="yg5-Be-EK4" secondAttribute="bottom" constant="10" id="lI5-Pr-TpL"/>
+                            <constraint firstItem="pqQ-wK-Z0i" firstAttribute="centerX" secondItem="olc-6m-Jfu" secondAttribute="centerX" id="nKU-gH-avi"/>
+                            <constraint firstItem="QnH-pz-1FE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.55" id="rBb-f0-gbv"/>
+                            <constraint firstItem="mVK-6S-J1N" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="wfo-nx-NrW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BgE-R5-rtI"/>
                     <connections>
+                        <outlet property="emailLabel" destination="mVK-6S-J1N" id="S9e-iI-ghU"/>
+                        <outlet property="nameLabel" destination="Hcw-tS-MUI" id="ZOh-3u-GoY"/>
                         <outlet property="toQueue" destination="y5J-E9-YXw" id="zFw-bb-UEm"/>
                         <outlet property="toThrottle" destination="pqQ-wK-Z0i" id="yXe-oh-zBa"/>
                     </connections>
