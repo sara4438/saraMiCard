@@ -66,6 +66,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipm-G0-SSB" userLabel="Google" customClass="GIDSignInButton">
                                 <rect key="frame" x="126" y="478" width="166" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UC5-sz-Tc6" userLabel="check">
                                 <rect key="frame" x="162.5" y="755" width="89" height="30"/>
@@ -81,6 +86,20 @@
                                     <action selector="check:" destination="CF4-GQ-C9C" eventType="touchUpInside" id="TB6-8d-HtG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxu-kl-1dg" userLabel="Login with Line" customClass="LoginButton" customModule="LineSDK">
+                                <rect key="frame" x="155.5" y="398" width="103" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.76296657320000005" blue="0.0071182013490000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Login with Line"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="lineLogin:" destination="CF4-GQ-C9C" eventType="touchUpInside" id="H4Z-kI-LuL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="r1h-uG-Vfi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -90,10 +109,12 @@
                             <constraint firstItem="xuk-TT-oXV" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" id="AO2-zB-PWc"/>
                             <constraint firstItem="Lz1-QI-nAj" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" multiplier="0.4" id="AQc-Ck-1ox"/>
                             <constraint firstItem="ipm-G0-SSB" firstAttribute="leading" secondItem="b23-Wa-qsp" secondAttribute="leading" id="Jk5-XU-rUR"/>
+                            <constraint firstItem="Oxu-kl-1dg" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="MJ4-ii-dhZ"/>
                             <constraint firstItem="UC5-sz-Tc6" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="Q7Q-ak-voz"/>
                             <constraint firstItem="UC5-sz-Tc6" firstAttribute="centerY" secondItem="r1h-uG-Vfi" secondAttribute="centerY" multiplier="1.7" id="WhI-vJ-wIU"/>
                             <constraint firstItem="ipm-G0-SSB" firstAttribute="bottom" secondItem="trZ-xB-lsp" secondAttribute="bottom" id="boq-k1-oV2"/>
                             <constraint firstItem="trZ-xB-lsp" firstAttribute="top" secondItem="xuk-TT-oXV" secondAttribute="bottom" constant="10" id="c9j-3o-paM"/>
+                            <constraint firstItem="xuk-TT-oXV" firstAttribute="top" secondItem="Oxu-kl-1dg" secondAttribute="bottom" constant="10" id="cpU-1x-xZm"/>
                             <constraint firstItem="ipm-G0-SSB" firstAttribute="trailing" secondItem="trZ-xB-lsp" secondAttribute="trailing" id="dGG-Zy-3NA"/>
                             <constraint firstItem="Lz1-QI-nAj" firstAttribute="centerX" secondItem="r1h-uG-Vfi" secondAttribute="centerX" id="sv7-L8-YAI"/>
                             <constraint firstItem="b23-Wa-qsp" firstAttribute="centerY" secondItem="trZ-xB-lsp" secondAttribute="centerY" id="tDm-RN-yuR"/>
@@ -104,6 +125,7 @@
                     </view>
                     <connections>
                         <outlet property="googleLogIn" destination="ipm-G0-SSB" id="guq-62-653"/>
+                        <outlet property="lineBtn" destination="Oxu-kl-1dg" id="sNR-Qn-xu9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Asa-yL-WOV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -211,6 +233,9 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="logout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bgc-Rj-P1t"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hcw-tS-MUI">
                                 <rect key="frame" x="191.5" y="78" width="31" height="14.5"/>

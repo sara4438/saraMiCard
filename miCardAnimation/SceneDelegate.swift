@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import LineSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -24,6 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             context.options.sourceApplication,
             annotation: context.options.annotation
         )
+        //for Line登入
+        _ = LoginManager.shared.application(.shared, open: URLContexts.first?.url)
+        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , GIDSignInDelegate {
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
             ///for Facebook Login
             ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+            // for Linr Login
+            LoginManager.shared.setup(channelID: "1655549103", universalLinkURL: nil)
             return true
         }
 
@@ -57,7 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate , GIDSignInDelegate {
 
             } else if (url.absoluteString.range(of: "google") != nil){
                 result = GIDSignIn.sharedInstance().handle(url)
+            } else if (url.absoluteString.range(of: "line") != nil) {
+                result = LoginManager.shared.application(app, open: url)
             }
+
             
             return result
         }

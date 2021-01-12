@@ -10,8 +10,11 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
+import LineSDK
 
 class ViewController: UIViewController , GIDSignInDelegate {
+
+    @IBOutlet weak var lineBtn: LoginButton!
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
@@ -62,10 +65,12 @@ class ViewController: UIViewController , GIDSignInDelegate {
         ///Google sign in
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
-    
+        
          //Automatically sign in the user.
-//        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-      
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        // Line
+//        lineBtn.delegate = self
+        
         //fb按鈕
 //        let loginButton = FBLoginButton()
 //        loginButton.center = CGPoint(x: view.center.x, y: view.center.y + 3/4 * view.center.y)
@@ -93,6 +98,37 @@ class ViewController: UIViewController , GIDSignInDelegate {
 //            print(user.email)
 //        }
         
+    }
+    
+    
+    @IBAction func lineLogin(_ sender: Any) {
+        LoginManager.shared.login(permissions: [.profile], in: self) {
+            result in
+            switch result {
+            case .success(let loginResult):
+                print("!!!!", loginResult.accessToken.value)
+            // Do other things you need with the login result
+                guard let accessToken = AccessToken.current else {
+                    print("Failed to get access token")
+                    return
+                }
+//                let credential = LineSDKCredential. FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+//                Auth.auth().signIn(with: credential, completion: { (user, error) in
+//                    if let error = error {
+//                        print("Login error: \(error.localizedDescription)")
+//                        let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
+//                        let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//                        alertController.addAction(okayAction)
+//                        self.present(alertController, animated: true, completion: nil)
+//                        return
+//                    }
+//                    self.changeToBVC()
+//                })
+                
+            case .failure(let error):
+                print("xxxxx", error)
+            }
+        }
     }
     
     @IBAction func facebookLogin(sender: UIButton) {
@@ -125,33 +161,30 @@ class ViewController: UIViewController , GIDSignInDelegate {
         }
     }
     
-//    @IBAction func googleLogin(_ sender: Any) {
-//
-//
-//        // Perform login by calling Firebase APIs
-////        Auth.auth().signIn(with: credential, completion: { (user, error) in
-////            if let error = error {
-////                print("Login error: \(error.localizedDescription)")
-////                let alertController = UIAlertController(title: "Login Error", message: error.localizedDescription, preferredStyle: .alert)
-////                let okayAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-////                alertController.addAction(okayAction)
-////                self.present(alertController, animated: true, completion: nil)
-////                return
-////            }
-////            self.changeToBVC()
-////        })
-//
-//    }
-    
     public func changeToBVC() {
         if let viewController = self.storyboard?.instantiateViewController(withIdentifier: "secondPage") {
             UIApplication.shared.keyWindow?.rootViewController = viewController
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    
-    
-    
 }
-
+//extension ViewController: LoginButtonDelegate {
+//    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+//        <#code#>
+//    }
+//
+//    func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
+//        hideIndicator()
+//        print("Login Succeeded.")
+//    }
+//
+//    func loginButton(_ button: LoginButton, didFailLogin error: LineSDKError) {
+//        hideIndicator()
+//        print("Error: \(error)")
+//    }
+//
+//    func loginButtonDidStartLogin(_ button: LoginButton) {
+//        showIndicator()
+//        print("Login Started.")
+//    }
+//}
